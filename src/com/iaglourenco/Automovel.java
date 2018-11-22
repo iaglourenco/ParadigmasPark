@@ -14,7 +14,6 @@ public class Automovel {
        this.modelo=modelo;
        this.placa=placa;
        this.tipo=tipo;
-
     }
 
     String getMarca(){return this.marca;}

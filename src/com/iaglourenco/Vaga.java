@@ -2,8 +2,6 @@ package com.iaglourenco;
 
 public class Vaga {
 
-
-
     private Automovel veiculo;
     private int tipo;
     private String horaEntrada;
