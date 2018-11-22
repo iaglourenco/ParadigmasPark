@@ -10,6 +10,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.nio.channels.FileLock;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 class Interface  {
 
@@ -103,8 +105,8 @@ class Interface  {
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else{
 
-                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    //TODO salvar os preços
+                    JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                    //TODO salvar os preÃ§os
                     setupEstacionamento.setVisible(false);
                 }
             }
@@ -156,12 +158,12 @@ class Interface  {
 
 
     private void initSetup(){
-    	//LAYOUT DE CONFIGURAR PREÇOS
+    	//LAYOUT DE CONFIGURAR PREÃ‡OS
         setupEstacionamento.setLayout(new BorderLayout());
         setupEstacionamento.setSize(300, 260);
         setupEstacionamento.setResizable(false);
         setupEstacionamento.setLocationRelativeTo(null);
-        setupEstacionamento.setTitle("Configurar Preços");
+        setupEstacionamento.setTitle("Configurar PreÃ§os");
 
         panel1Setup.add(new JLabel("Carros / R$:"));
         panel1Setup.add(precoCarro);
@@ -193,10 +195,12 @@ class Interface  {
 
         panelSaida.add(new JLabel("Placa do Veiculo"));
         panelSaida.add(placaSaida);
-        panelSaida.add(new JLabel("Horario de Saida"));
-        panelSaida.add(horaSaida);
         categoria = new JComboBox(names);
         categoria.setMaximumRowCount(3);
+        panelSaida.add(new JLabel("Horario de Saida"));
+        panelSaida.add(horaSaida);
+        
+        
         panelSaida.add(categoria);
         panelSaida.add(buttonOKSaida);
         panelSaida.add(buttonBackSaida);
@@ -253,7 +257,15 @@ class Interface  {
         }
         return instance;
     }
-
+    
+  //metodo para pegar a hora e data local
+    public void HORA_DATA(){
+      //pega hora
+         horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+         horaSaida.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+      //pega data
+         //JTF_data.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+    }
 
     private class StatusHandler implements ActionListener{
 
@@ -264,8 +276,10 @@ class Interface  {
 
             if(e.getSource() == buttonEntrada){
                 entradaVeiculos.setVisible(true);
+                HORA_DATA();
             }else if(e.getSource() == buttonSaida){
                 saidaVeiculos.setVisible(true);
+                HORA_DATA();
             }else if(e.getSource() == buttonContabilidade){
                 contabilidade.setVisible(true);
             }else if(e.getSource() == buttonExit){
@@ -289,8 +303,8 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
-                //TODO salvar os preços
-                JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                //TODO salvar os preÃ§os
+                JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
                 setupEstacionamento.setVisible(false);
 
             } else if (e.getSource() == buttonClearSetup) {
