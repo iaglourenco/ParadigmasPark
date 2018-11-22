@@ -1,17 +1,14 @@
 package com.iaglourenco;
 
-import javax.management.JMException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.nio.channels.FileLock;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 class Interface  {
 
@@ -23,8 +20,9 @@ class Interface  {
     private JFrame setupEstacionamento = new JFrame();
     private JFrame contabilidade = new JFrame();
     private JFrame status = new JFrame();
+    private JFrame pagamento = new JFrame();
     private Dimension frameDimension = new Dimension(800,600);
-    private Dimension popupDimension = new Dimension(300,400);
+    private Dimension popupDimension = new Dimension(300,260);
 
     private JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
     private JButton buttonSaida=new JButton("Registrar saida");//registrar saida
@@ -33,16 +31,16 @@ class Interface  {
     private JPanel panel1Status = new JPanel(new FlowLayout());
 
 
-    private JPanel panel1Setup = new JPanel(new GridLayout(7,0,10,10));//TODO encontrar um layout melhor
+    private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));//TODO encontrar um layout melhor
     private JTextField precoCaminhonete = new JTextField();
     private JTextField precoCarro = new JTextField();
     private JTextField precoMotocicleta = new JTextField();
     private JButton buttonOKSetup = new JButton("OK");
     private JButton buttonClearSetup = new JButton("Limpar");
 
-    private	JComboBox categoria; //Para painel Entrada e Saida 
-    private static final String[] names = {"Carro","Caminhonete","Motocicleta"};
-    
+    private JComboBox<String> categoria; //Para painel Entrada e Saida
+    private final String[] names = {"Carro","Caminhonete","Motocicleta"};
+
     private JPanel panelSaida = new JPanel(new GridLayout(7,0,10,10));
     private JTextField placaSaida = new JTextField();
     private JTextField horaSaida = new JTextField();
@@ -61,6 +59,12 @@ class Interface  {
     private JTextArea contabArea = new JTextArea();
     private JButton buttonOKContabilidade = new JButton("OK");
 
+    private JPanel panelPagamento = new JPanel();
+    private JTextArea infoPlaca = new JTextArea();
+    private JTextArea infoPreco = new JTextArea();
+    private JTextArea infoTipo = new JTextArea();
+    private JButton buttonOKPagamento = new JButton("OK");
+
 
 
     private  Interface(){
@@ -68,6 +72,7 @@ class Interface  {
         initSetup();
         initEntrada();
         initSaida();
+        initPagamento();
         initContabilidade();
         addAllHandlers();
     }
@@ -105,8 +110,8 @@ class Interface  {
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else{
 
-                    JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    //TODO salvar os preÃ§os
+                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                    //TODO salvar os preços
                     setupEstacionamento.setVisible(false);
                 }
             }
@@ -122,18 +127,20 @@ class Interface  {
         buttonBackEntrada.addActionListener(new EntradaHandler());
         buttonOKSaida.addActionListener(new SaidaHandler());
         buttonBackSaida.addActionListener(new SaidaHandler());
-        categoria.addItemListener(new ItemListener() {
+        categoria.addItemListener(e -> {
+            if(e.getItem().toString().equals(names[0])){
+                //Carro
 
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				if(e.getStateChange() == ItemEvent.SELECTED) {
-					 //JComboBox combo = (JComboBox) e.getSource();
-				}
-			}
+            }else if(e.getItem().toString().equals(names[1])){
+                //Caminhonete
+
+            }else{
+                //Moto
+
+            }
         });
         buttonOKContabilidade.addActionListener(new ContabileHandler());
-        
+
     }
 
     private void initialize(){
@@ -158,24 +165,22 @@ class Interface  {
 
 
     private void initSetup(){
-    	//LAYOUT DE CONFIGURAR PREÃ‡OS
+        //LAYOUT DE CONFIGURAR PREÇOS
         setupEstacionamento.setLayout(new BorderLayout());
-        setupEstacionamento.setSize(300, 260);
+        setupEstacionamento.setSize(popupDimension);
         setupEstacionamento.setResizable(false);
         setupEstacionamento.setLocationRelativeTo(null);
-        setupEstacionamento.setTitle("Configurar PreÃ§os");
+        setupEstacionamento.setTitle("Configurar Preços");
 
         panel1Setup.add(new JLabel("Carros / R$:"));
         panel1Setup.add(precoCarro);
-        
+
         panel1Setup.add(new JLabel("Caminhonetes / R$:"));
         panel1Setup.add(precoCaminhonete);
 
         panel1Setup.add(new JLabel("Motocicletas / R$:"));
         panel1Setup.add(precoMotocicleta);
 
-        //buttonOKSetup.setBounds(300,  ,200);
-        
         panel1Setup.add(buttonOKSetup);
         panel1Setup.add(buttonClearSetup);
 
@@ -186,7 +191,7 @@ class Interface  {
     }
 
     private void initSaida(){
-    	//LAYOUT REGISTRO DE SAIDA
+        //LAYOUT REGISTRO DE SAIDA
         saidaVeiculos.setLayout(new BorderLayout());
         saidaVeiculos.setSize(popupDimension);
         saidaVeiculos.setResizable(false);
@@ -195,12 +200,10 @@ class Interface  {
 
         panelSaida.add(new JLabel("Placa do Veiculo"));
         panelSaida.add(placaSaida);
-        categoria = new JComboBox(names);
-        categoria.setMaximumRowCount(3);
         panelSaida.add(new JLabel("Horario de Saida"));
         panelSaida.add(horaSaida);
-        
-        
+        categoria = new JComboBox<>(names);
+        categoria.setMaximumRowCount(3);
         panelSaida.add(categoria);
         panelSaida.add(buttonOKSaida);
         panelSaida.add(buttonBackSaida);
@@ -210,7 +213,7 @@ class Interface  {
     }
 
     private void initEntrada(){
-    	//LAYOUT REGISTRO DE ENTRADA
+        //LAYOUT REGISTRO DE ENTRADA
         entradaVeiculos.setLayout(new BorderLayout());
         entradaVeiculos.setSize(popupDimension);
         entradaVeiculos.setResizable(false);
@@ -221,7 +224,7 @@ class Interface  {
         panelEntrada.add(placaEntrada);
         panelEntrada.add(new JLabel("Horario de Entrada"));
         panelEntrada.add(horaEntrada);
-        categoria = new JComboBox(names);
+        categoria = new JComboBox<>(names);
         categoria.setMaximumRowCount(3);
         panelEntrada.add(categoria);
         panelEntrada.add(buttonOKEntrada);
@@ -232,7 +235,7 @@ class Interface  {
     }
 
     private void initContabilidade(){
-    	//LAYOUT CONTROLE DA CONTABILIDADE
+        //LAYOUT CONTROLE DA CONTABILIDADE
         contabilidade.setLayout(new BorderLayout());
         contabilidade.setSize(frameDimension);
         contabilidade.setResizable(false);
@@ -248,6 +251,35 @@ class Interface  {
 
     }
 
+    private void initPagamento(){
+
+        pagamento.setLayout(new BorderLayout());
+        pagamento.setSize(popupDimension);
+        pagamento.setResizable(false);
+        pagamento.setLocationRelativeTo(null);
+        pagamento.setTitle("Pagamento");
+        infoPlaca.setEditable(false);
+        infoTipo.setEditable(false);
+        infoPreco.setEditable(false);
+        infoPlaca.setText("JIW-1698");
+        infoPreco.setText("2000");
+        infoTipo.setText("Carro");
+        //TODO pegar do arquivo e calcular o valor a pagar
+        panelPagamento.setLayout(new GridLayout(7,0,10,10));
+        panelPagamento.add(new JLabel("Placa"));
+        panelPagamento.add(infoPlaca);
+        panelPagamento.add(new JLabel("Tipo"));
+        panelPagamento.add(infoTipo);
+        panelPagamento.add(new JLabel("Valor"));
+        panelPagamento.add(infoPreco);
+        panelPagamento.add(buttonOKPagamento);
+
+
+
+        pagamento.add(panelPagamento,BorderLayout.CENTER);
+
+    }
+
 
     //singleton
     synchronized static Interface getInstance(){
@@ -257,15 +289,8 @@ class Interface  {
         }
         return instance;
     }
-    
-  //metodo para pegar a hora e data local
-    public void HORA_DATA(){
-      //pega hora
-         horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
-         horaSaida.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
-      //pega data
-         //JTF_data.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
-    }
+
+
 
     private class StatusHandler implements ActionListener{
 
@@ -275,11 +300,11 @@ class Interface  {
 
 
             if(e.getSource() == buttonEntrada){
+                horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
-                HORA_DATA();
             }else if(e.getSource() == buttonSaida){
+                horaSaida.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
                 saidaVeiculos.setVisible(true);
-                HORA_DATA();
             }else if(e.getSource() == buttonContabilidade){
                 contabilidade.setVisible(true);
             }else if(e.getSource() == buttonExit){
@@ -303,16 +328,16 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
-                //TODO salvar os preÃ§os
-                JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                //TODO salvar os preços
+                JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
                 setupEstacionamento.setVisible(false);
 
             } else if (e.getSource() == buttonClearSetup) {
-            	//limpa os campos
+                //limpa os campos
                 precoCaminhonete.setText("");
                 precoCarro.setText("");
                 precoMotocicleta.setText("");
-			}
+            }
 
         }
     }
@@ -336,6 +361,7 @@ class Interface  {
 
             if(e.getSource() == buttonOKSaida){
                 //TODO perform saida
+                pagamento.setVisible(true);
             }else if(e.getSource() == buttonBackSaida){
                 saidaVeiculos.setVisible(false);
             }
