@@ -1,7 +1,7 @@
 package com.iaglourenco;
 
 public class Automovel {
-    public static final int CAMINHONETE=0,CARRO=1,MOTO=2;
+    static final int CAMINHONETE=0,CARRO=1,MOTO=2;
 
 
     private String marca;

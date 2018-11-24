@@ -2,10 +2,7 @@ package com.iaglourenco;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +11,7 @@ class Interface  {
 
     private static Interface instance;
 
-
+    private Sistema sistema = Sistema.getInstance();
     private JFrame saidaVeiculos = new JFrame();
     private JFrame entradaVeiculos = new JFrame();
     private JFrame setupEstacionamento = new JFrame();
@@ -38,8 +35,8 @@ class Interface  {
     private JButton buttonOKSetup = new JButton("OK");
     private JButton buttonClearSetup = new JButton("Limpar");
 
-    private JComboBox<String> categoria; //Para painel Entrada e Saida
-    private final String[] names = {"Carro","Caminhonete","Motocicleta"};
+    private final String[] names = {"Selecione...","Carro","Caminhonete","Motocicleta"};
+    private JComboBox<String> categoria = new JComboBox<>(names); //Para painel Entrada e Saida
 
     private JPanel panelSaida = new JPanel(new GridLayout(7,0,10,10));
     private JTextField placaSaida = new JTextField();
@@ -110,9 +107,11 @@ class Interface  {
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else{
 
+                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
                     JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    //TODO salvar os preços
-                    setupEstacionamento.setVisible(false);
+                    setupEstacionamento.dispose();
                 }
             }
         });
@@ -123,22 +122,19 @@ class Interface  {
             }
         });
 
+
+        categoria.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
+                System.out.println(e.getItem().toString());
+            }
+        });
+
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
         buttonOKSaida.addActionListener(new SaidaHandler());
         buttonBackSaida.addActionListener(new SaidaHandler());
-        categoria.addItemListener(e -> {
-            if(e.getItem().toString().equals(names[0])){
-                //Carro
-
-            }else if(e.getItem().toString().equals(names[1])){
-                //Caminhonete
-
-            }else{
-                //Moto
-
-            }
-        });
         buttonOKContabilidade.addActionListener(new ContabileHandler());
 
     }
@@ -161,8 +157,6 @@ class Interface  {
         status.add(panel1Status,BorderLayout.SOUTH);
         status.setVisible(true);
     }
-
-
 
     private void initSetup(){
         //LAYOUT DE CONFIGURAR PREÇOS
@@ -224,8 +218,7 @@ class Interface  {
         panelEntrada.add(placaEntrada);
         panelEntrada.add(new JLabel("Horario de Entrada"));
         panelEntrada.add(horaEntrada);
-        categoria = new JComboBox<>(names);
-        categoria.setMaximumRowCount(3);
+        categoria.setMaximumRowCount(names.length);
         panelEntrada.add(categoria);
         panelEntrada.add(buttonOKEntrada);
         panelEntrada.add(buttonBackEntrada);
@@ -297,8 +290,6 @@ class Interface  {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-
-
             if(e.getSource() == buttonEntrada){
                 horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
@@ -328,10 +319,16 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
-                //TODO salvar os preços
-                JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                setupEstacionamento.setVisible(false);
+                if(precoCaminhonete.getText().isEmpty() || precoCarro.getText().isEmpty() || precoMotocicleta.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
+                }else{
 
+                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
+                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                    setupEstacionamento.dispose();
+                }
             } else if (e.getSource() == buttonClearSetup) {
                 //limpa os campos
                 precoCaminhonete.setText("");
@@ -347,9 +344,12 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKEntrada){
-                //TODO perform entrada
+                //todo pegar as informaçoes necessarias e char a funcao ja feita
+
+
+                //sistema.registraEntrada();
             }else if(e.getSource() == buttonBackEntrada){
-                entradaVeiculos.setVisible(false);
+                entradaVeiculos.dispose();
             }
 
         }
@@ -363,7 +363,7 @@ class Interface  {
                 //TODO perform saida
                 pagamento.setVisible(true);
             }else if(e.getSource() == buttonBackSaida){
-                saidaVeiculos.setVisible(false);
+                saidaVeiculos.dispose();
             }
         }
     }
@@ -373,7 +373,7 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKContabilidade){
-                contabilidade.setVisible(false);
+                contabilidade.dispose();
             }
         }
     }

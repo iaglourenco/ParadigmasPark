@@ -3,13 +3,15 @@ package com.iaglourenco;
 public class Vaga {
 
     private Automovel veiculo;
-    private int tipo;
     private String horaEntrada;
 
 
-    public Vaga(Automovel veiculo,int tipo,String hora){
+    Vaga(){
+        veiculo=null;
+
+    }
+    Vaga(Automovel veiculo,String hora){
         this.veiculo=veiculo;
-        this.tipo=tipo;
         this.horaEntrada=hora;
     }
 
@@ -18,11 +20,11 @@ public class Vaga {
         return horaEntrada;
     }
 
-    public int getTipo() {
-        return tipo;
+    int getTipo() {
+        return veiculo.getTipo();
     }
 
-    public Automovel getVeiculo() {
+    Automovel getVeiculo() {
         return veiculo;
     }
 }
