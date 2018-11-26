@@ -162,20 +162,20 @@ class Interface  {
         panel2Status.add(buttonPriPiso);
         
         //Visualização Geral
-        panel2Status.add(new JLabel("Carros"));
+        panel2Status.add(new JLabel("                                              Carros "));
         panel2Status.add(infoCarro);
         infoCarro.setEditable(false);
-        infoCarro.setText("55");
+        infoCarro.setText(" 55 / 160 ");
 
-        panel2Status.add(new JLabel("Caminhonetes"));
+        panel2Status.add(new JLabel("      Caminhonetes "));
         panel2Status.add(infoCaminhonete);
         infoCaminhonete.setEditable(false);
-        infoCaminhonete.setText("10");
+        infoCaminhonete.setText(" 10 / 20 ");
 
-        panel2Status.add(new JLabel("Motocicletas"));
+        panel2Status.add(new JLabel("      Motocicletas "));
         panel2Status.add(infoMoto);
         infoMoto.setEditable(false);
-        infoMoto.setText("20");
+        infoMoto.setText(" 20 / 20");
         
         panel1Status.add(buttonEntrada);
         panel1Status.add(buttonSaida);
