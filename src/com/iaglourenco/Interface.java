@@ -2,10 +2,7 @@ package com.iaglourenco;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,11 +11,13 @@ class Interface  {
 
     private static Interface instance;
 
-
+    private Sistema sistema = Sistema.getInstance();
     private JFrame saidaVeiculos = new JFrame();
     private JFrame entradaVeiculos = new JFrame();
     private JFrame setupEstacionamento = new JFrame();
     private JFrame contabilidade = new JFrame();
+    private JPanel terreo = new JPanel();
+    private JPanel priPiso = new JPanel();
     private JFrame status = new JFrame();
     private JFrame pagamento = new JFrame();
     private Dimension frameDimension = new Dimension(800,600);
@@ -28,7 +27,13 @@ class Interface  {
     private JButton buttonSaida=new JButton("Registrar saida");//registrar saida
     private JButton buttonContabilidade = new JButton("Contabilidade");
     private JButton buttonExit=new JButton("Sair");//sair do programa
+    private JButton buttonTerreo =new JButton("Terreo");//visualizar piso terreo
+    private JButton buttonPriPiso =new JButton("1° Piso");//visualizar primeiro piso
+    private JTextArea infoCarro = new JTextArea();
+    private JTextArea infoMoto = new JTextArea();
+    private JTextArea infoCaminhonete = new JTextArea();
     private JPanel panel1Status = new JPanel(new FlowLayout());
+    private JPanel panel2Status = new JPanel(new FlowLayout());
 
 
     private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));//TODO encontrar um layout melhor
@@ -38,8 +43,8 @@ class Interface  {
     private JButton buttonOKSetup = new JButton("OK");
     private JButton buttonClearSetup = new JButton("Limpar");
 
-    private JComboBox<String> categoria; //Para painel Entrada e Saida
-    private final String[] names = {"Carro","Caminhonete","Motocicleta"};
+    private final String[] names = {"Selecione...","Carro","Caminhonete","Motocicleta"};
+    private JComboBox<String> categoria = new JComboBox<>(names); //Para painel Entrada e Saida
 
     private JPanel panelSaida = new JPanel(new GridLayout(7,0,10,10));
     private JTextField placaSaida = new JTextField();
@@ -110,9 +115,11 @@ class Interface  {
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else{
 
-                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    //TODO salvar os preços
-                    setupEstacionamento.setVisible(false);
+                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
+                    JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                    setupEstacionamento.dispose();
                 }
             }
         });
@@ -123,22 +130,19 @@ class Interface  {
             }
         });
 
+
+        categoria.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
+                System.out.println(e.getItem().toString());
+            }
+        });
+
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
         buttonOKSaida.addActionListener(new SaidaHandler());
         buttonBackSaida.addActionListener(new SaidaHandler());
-        categoria.addItemListener(e -> {
-            if(e.getItem().toString().equals(names[0])){
-                //Carro
-
-            }else if(e.getItem().toString().equals(names[1])){
-                //Caminhonete
-
-            }else{
-                //Moto
-
-            }
-        });
         buttonOKContabilidade.addActionListener(new ContabileHandler());
 
     }
@@ -150,7 +154,29 @@ class Interface  {
         status.setResizable(false);
         status.setLocationRelativeTo(null);
         status.setTitle("Paradigmas-B [Controle de Estacionamento]");
+        
+        //STATUS TERREO
+        panel2Status.add(buttonTerreo);
+        
+        //STATUS 1°PISO
+        panel2Status.add(buttonPriPiso);
+        
+        //Visualização Geral
+        panel2Status.add(new JLabel("Carros"));
+        panel2Status.add(infoCarro);
+        infoCarro.setEditable(false);
+        infoCarro.setText("55");
 
+        panel2Status.add(new JLabel("Caminhonetes"));
+        panel2Status.add(infoCaminhonete);
+        infoCaminhonete.setEditable(false);
+        infoCaminhonete.setText("10");
+
+        panel2Status.add(new JLabel("Motocicletas"));
+        panel2Status.add(infoMoto);
+        infoMoto.setEditable(false);
+        infoMoto.setText("20");
+        
         panel1Status.add(buttonEntrada);
         panel1Status.add(buttonSaida);
         panel1Status.add(buttonContabilidade);
@@ -159,18 +185,17 @@ class Interface  {
 
 
         status.add(panel1Status,BorderLayout.SOUTH);
+        status.add(panel2Status,BorderLayout.NORTH);
         status.setVisible(true);
     }
 
-
-
     private void initSetup(){
-        //LAYOUT DE CONFIGURAR PREÇOS
+        //LAYOUT DE CONFIGURAR PREÃ‡OS
         setupEstacionamento.setLayout(new BorderLayout());
         setupEstacionamento.setSize(popupDimension);
         setupEstacionamento.setResizable(false);
         setupEstacionamento.setLocationRelativeTo(null);
-        setupEstacionamento.setTitle("Configurar Preços");
+        setupEstacionamento.setTitle("Configurar PreÃ§os");
 
         panel1Setup.add(new JLabel("Carros / R$:"));
         panel1Setup.add(precoCarro);
@@ -211,7 +236,7 @@ class Interface  {
         saidaVeiculos.add(panelSaida);
 
     }
-
+    
     private void initEntrada(){
         //LAYOUT REGISTRO DE ENTRADA
         entradaVeiculos.setLayout(new BorderLayout());
@@ -224,8 +249,7 @@ class Interface  {
         panelEntrada.add(placaEntrada);
         panelEntrada.add(new JLabel("Horario de Entrada"));
         panelEntrada.add(horaEntrada);
-        categoria = new JComboBox<>(names);
-        categoria.setMaximumRowCount(3);
+        categoria.setMaximumRowCount(names.length);
         panelEntrada.add(categoria);
         panelEntrada.add(buttonOKEntrada);
         panelEntrada.add(buttonBackEntrada);
@@ -297,8 +321,6 @@ class Interface  {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-
-
             if(e.getSource() == buttonEntrada){
                 horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
@@ -318,6 +340,8 @@ class Interface  {
 
                 }
 
+            } else if(e.getSource() == buttonTerreo) {
+            	
             }
 
         }
@@ -328,10 +352,16 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
-                //TODO salvar os preços
-                JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                setupEstacionamento.setVisible(false);
+                if(precoCaminhonete.getText().isEmpty() || precoCarro.getText().isEmpty() || precoMotocicleta.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
+                }else{
 
+                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
+                    JOptionPane.showMessageDialog(null,"Os preÃ§os digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                    setupEstacionamento.dispose();
+                }
             } else if (e.getSource() == buttonClearSetup) {
                 //limpa os campos
                 precoCaminhonete.setText("");
@@ -347,9 +377,12 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKEntrada){
-                //TODO perform entrada
+                //todo pegar as informaÃ§oes necessarias e char a funcao ja feita
+
+
+                //sistema.registraEntrada();
             }else if(e.getSource() == buttonBackEntrada){
-                entradaVeiculos.setVisible(false);
+                entradaVeiculos.dispose();
             }
 
         }
@@ -363,7 +396,7 @@ class Interface  {
                 //TODO perform saida
                 pagamento.setVisible(true);
             }else if(e.getSource() == buttonBackSaida){
-                saidaVeiculos.setVisible(false);
+                saidaVeiculos.dispose();
             }
         }
     }
@@ -373,7 +406,7 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKContabilidade){
-                contabilidade.setVisible(false);
+                contabilidade.dispose();
             }
         }
     }
