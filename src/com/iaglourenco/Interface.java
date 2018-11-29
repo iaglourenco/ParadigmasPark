@@ -16,8 +16,6 @@ class Interface  {
     private JFrame entradaVeiculos = new JFrame();
     private JFrame setupEstacionamento = new JFrame();
     private JFrame contabilidade = new JFrame();
-    private JPanel terreo = new JPanel();
-    private JPanel priPiso = new JPanel();
     private JFrame status = new JFrame();
     private JFrame pagamento = new JFrame();
     private Dimension frameDimension = new Dimension(800,600);
@@ -34,6 +32,15 @@ class Interface  {
     private JTextArea infoCaminhonete = new JTextArea();
     private JPanel panel1Status = new JPanel(new FlowLayout());
     private JPanel panel2Status = new JPanel(new FlowLayout());
+    private JPanel terreoStatus = new JPanel(new FlowLayout());
+    private JPanel priPisoStatus = new JPanel(new FlowLayout());
+    
+    Icon carro = new ImageIcon(getClass().getResource("buttonCarGreen.png"));
+    //carro.setImage(carro.getImage().getScaledInstance(50, 50, 100));
+    private JButton buttonEstacTerreo = new JButton(carro);
+    
+    Icon moto = new ImageIcon(getClass().getResource("buttonMotocycleGreen.png"));
+    private JButton buttonEstacPriPiso = new JButton(moto);
 
 
     private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));//TODO encontrar um layout melhor
@@ -74,7 +81,7 @@ class Interface  {
 
     private  Interface(){
         initialize();
-        initSetup();
+        //initSetup();
         initEntrada();
         initSaida();
         initPagamento();
@@ -88,6 +95,9 @@ class Interface  {
         buttonSaida.addActionListener(new StatusHandler());
         buttonContabilidade.addActionListener(new StatusHandler());
         buttonExit.addActionListener(new StatusHandler());
+        buttonTerreo.addActionListener(new StatusHandler());
+        buttonPriPiso.addActionListener(new StatusHandler());
+        
         status.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         status.addWindowListener(new WindowAdapter() {
             @Override
@@ -107,6 +117,7 @@ class Interface  {
 
         buttonOKSetup.addActionListener(new SetupHandler());
         buttonClearSetup.addActionListener(new SetupHandler());
+        
         setupEstacionamento.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setupEstacionamento.addWindowListener(new WindowAdapter() {
             @Override
@@ -141,8 +152,10 @@ class Interface  {
 
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
+        
         buttonOKSaida.addActionListener(new SaidaHandler());
         buttonBackSaida.addActionListener(new SaidaHandler());
+        
         buttonOKContabilidade.addActionListener(new ContabileHandler());
 
     }
@@ -181,11 +194,25 @@ class Interface  {
         panel1Status.add(buttonSaida);
         panel1Status.add(buttonContabilidade);
         panel1Status.add(buttonExit);
+        
         //TODO inicializar a visualizacao de vagas disponiveis
-
-
+        buttonEstacTerreo.setOpaque(false);
+        buttonEstacTerreo.setContentAreaFilled(false);
+        buttonEstacTerreo.setBorderPainted(false);
+        buttonEstacTerreo.setPreferredSize(new Dimension(150,100));
+        terreoStatus.add(buttonEstacTerreo);
+        
+        
+        buttonEstacPriPiso.setOpaque(false);
+        buttonEstacPriPiso.setContentAreaFilled(false);
+        buttonEstacPriPiso.setBorderPainted(false);
+        buttonEstacPriPiso.setPreferredSize(new Dimension(150,100));
+        priPisoStatus.add(buttonEstacPriPiso);
+        
         status.add(panel1Status,BorderLayout.SOUTH);
         status.add(panel2Status,BorderLayout.NORTH);
+        status.add(terreoStatus,BorderLayout.EAST);
+        status.add(priPisoStatus,BorderLayout.WEST);
         status.setVisible(true);
     }
 
@@ -341,9 +368,15 @@ class Interface  {
                 }
 
             } else if(e.getSource() == buttonTerreo) {
+            	priPisoStatus.setVisible(false);
+            	terreoStatus.setVisible(true);
             	
-            }
-
+            	
+            } else if(e.getSource() == buttonPriPiso) {
+            	priPisoStatus.setVisible(true);
+            	terreoStatus.setVisible(false);
+            	
+            } 
         }
     }
 
