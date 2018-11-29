@@ -32,15 +32,19 @@ class Interface  {
     private JTextArea infoCaminhonete = new JTextArea();
     private JPanel panel1Status = new JPanel(new FlowLayout());
     private JPanel panel2Status = new JPanel(new FlowLayout());
-    private JPanel terreoStatus = new JPanel(new FlowLayout());
-    private JPanel priPisoStatus = new JPanel(new FlowLayout());
+    private JPanel carroStatus = new JPanel(new FlowLayout());
+    private JPanel caminhoneteStatus = new JPanel(new FlowLayout());
+    private JPanel motoStatus = new JPanel(new FlowLayout());
     
     Icon carro = new ImageIcon(getClass().getResource("buttonCarGreen.png"));
     //carro.setImage(carro.getImage().getScaledInstance(50, 50, 100));
-    private JButton buttonEstacTerreo = new JButton(carro);
+    private JButton buttonEstacCarro = new JButton(carro);
+
+    Icon caminhonete = new ImageIcon(getClass().getResource("buttonCaminhonteGreen.png"));
+    private JButton buttonEstacCaminhonete = new JButton(caminhonete);
     
     Icon moto = new ImageIcon(getClass().getResource("buttonMotocycleGreen.png"));
-    private JButton buttonEstacPriPiso = new JButton(moto);
+    private JButton buttonEstacMoto = new JButton(moto);
 
 
     private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));//TODO encontrar um layout melhor
@@ -196,23 +200,30 @@ class Interface  {
         panel1Status.add(buttonExit);
         
         //TODO inicializar a visualizacao de vagas disponiveis
-        buttonEstacTerreo.setOpaque(false);
-        buttonEstacTerreo.setContentAreaFilled(false);
-        buttonEstacTerreo.setBorderPainted(false);
-        buttonEstacTerreo.setPreferredSize(new Dimension(150,100));
-        terreoStatus.add(buttonEstacTerreo);
+        buttonEstacCarro.setOpaque(false);
+        buttonEstacCarro.setContentAreaFilled(false);
+        buttonEstacCarro.setBorderPainted(false);
+        buttonEstacCarro.setPreferredSize(new Dimension(150,100));
+        carroStatus.setLocation(100,100);
+        carroStatus.add(buttonEstacCarro);
+                
+        buttonEstacMoto.setOpaque(false);
+        buttonEstacMoto.setContentAreaFilled(false);
+        buttonEstacMoto.setBorderPainted(false);
+        buttonEstacMoto.setPreferredSize(new Dimension(150,100));
+        motoStatus.add(buttonEstacMoto);
         
-        
-        buttonEstacPriPiso.setOpaque(false);
-        buttonEstacPriPiso.setContentAreaFilled(false);
-        buttonEstacPriPiso.setBorderPainted(false);
-        buttonEstacPriPiso.setPreferredSize(new Dimension(150,100));
-        priPisoStatus.add(buttonEstacPriPiso);
+        buttonEstacCaminhonete.setOpaque(false);
+        buttonEstacCaminhonete.setContentAreaFilled(false);
+        buttonEstacCaminhonete.setBorderPainted(false);
+        buttonEstacCaminhonete.setPreferredSize(new Dimension(150,100));
+        caminhoneteStatus.add(buttonEstacCaminhonete);
         
         status.add(panel1Status,BorderLayout.SOUTH);
         status.add(panel2Status,BorderLayout.NORTH);
-        status.add(terreoStatus,BorderLayout.EAST);
-        status.add(priPisoStatus,BorderLayout.WEST);
+        status.add(carroStatus,BorderLayout.LINE_START);
+        status.add(caminhoneteStatus,BorderLayout.CENTER);
+        status.add(motoStatus,BorderLayout.LINE_END);
         status.setVisible(true);
     }
 
@@ -368,13 +379,15 @@ class Interface  {
                 }
 
             } else if(e.getSource() == buttonTerreo) {
-            	priPisoStatus.setVisible(false);
-            	terreoStatus.setVisible(true);
+            	motoStatus.setVisible(true);
+            	caminhoneteStatus.setVisible(true);
+            	carroStatus.setVisible(false);
             	
             	
             } else if(e.getSource() == buttonPriPiso) {
-            	priPisoStatus.setVisible(true);
-            	terreoStatus.setVisible(false);
+            	carroStatus.setVisible(true);
+            	motoStatus.setVisible(false);
+            	caminhoneteStatus.setVisible(false);
             	
             } 
         }
