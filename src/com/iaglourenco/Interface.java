@@ -1,11 +1,16 @@
 package com.iaglourenco;
 
+import com.iaglourenco.exceptions.PlacaInexistenteException;
+import com.iaglourenco.exceptions.ReadFileException;
+import com.iaglourenco.exceptions.ValorInvalidoException;
+import com.iaglourenco.exceptions.WriteFileException;
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 class Interface  {
 
@@ -24,6 +29,7 @@ class Interface  {
     private JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
     private JButton buttonSaida=new JButton("Registrar saida");//registrar saida
     private JButton buttonContabilidade = new JButton("Contabilidade");
+    private JButton buttonSetup = new JButton("Configurar preços");
     private JButton buttonExit=new JButton("Sair");//sair do programa
     private JPanel panel1Status = new JPanel(new FlowLayout());
 
@@ -67,6 +73,8 @@ class Interface  {
     private  Interface(){
         initialize();
         initSetup();
+        setupEstacionamento.setVisible(true);
+        sistema.setup();
         initEntrada();
         initSaida();
         initPagamento();
@@ -79,6 +87,7 @@ class Interface  {
         buttonEntrada.addActionListener(new StatusHandler());
         buttonSaida.addActionListener(new StatusHandler());
         buttonContabilidade.addActionListener(new StatusHandler());
+        buttonSetup.addActionListener(new StatusHandler());
         buttonExit.addActionListener(new StatusHandler());
         status.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         status.addWindowListener(new WindowAdapter() {
@@ -123,13 +132,7 @@ class Interface  {
         });
 
 
-        categoria.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
 
-                System.out.println(e.getItem().toString());
-            }
-        });
 
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
@@ -150,6 +153,7 @@ class Interface  {
         panel1Status.add(buttonEntrada);
         panel1Status.add(buttonSaida);
         panel1Status.add(buttonContabilidade);
+        panel1Status.add(buttonSetup);
         panel1Status.add(buttonExit);
         //TODO inicializar a visualizacao de vagas disponiveis
 
@@ -175,12 +179,14 @@ class Interface  {
         panel1Setup.add(new JLabel("Motocicletas / R$:"));
         panel1Setup.add(precoMotocicleta);
 
+        precoCarro.setText(Double.toString(sistema.getPrecoCarro()));
+        precoCaminhonete.setText(Double.toString(sistema.getPrecoCaminhonete()));
+        precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
+
         panel1Setup.add(buttonOKSetup);
         panel1Setup.add(buttonClearSetup);
 
         setupEstacionamento.add(panel1Setup,BorderLayout.CENTER);
-
-        setupEstacionamento.setVisible(true);
 
     }
 
@@ -254,10 +260,6 @@ class Interface  {
         infoPlaca.setEditable(false);
         infoTipo.setEditable(false);
         infoPreco.setEditable(false);
-        infoPlaca.setText("JIW-1698");
-        infoPreco.setText("2000");
-        infoTipo.setText("Carro");
-        //TODO pegar do arquivo e calcular o valor a pagar
         panelPagamento.setLayout(new GridLayout(7,0,10,10));
         panelPagamento.add(new JLabel("Placa"));
         panelPagamento.add(infoPlaca);
@@ -266,8 +268,7 @@ class Interface  {
         panelPagamento.add(new JLabel("Valor"));
         panelPagamento.add(infoPreco);
         panelPagamento.add(buttonOKPagamento);
-
-
+        buttonOKPagamento.addActionListener(e -> pagamento.dispose());
 
         pagamento.add(panelPagamento,BorderLayout.CENTER);
 
@@ -291,13 +292,17 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonEntrada){
-                horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                placaEntrada.setText("");
+                horaEntrada.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonSaida){
-                horaSaida.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                placaSaida.setText("");
+                horaSaida.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
                 saidaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonContabilidade){
                 contabilidade.setVisible(true);
+            }else if(e.getSource() == buttonSetup){
+                setupEstacionamento.setVisible(true);
             }else if(e.getSource() == buttonExit){
                 if(JOptionPane.showConfirmDialog
                         (null,"Tem certeza?",
@@ -319,8 +324,19 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
+                if(precoCaminhonete.getText().equals("0.0")){
+                    precoCaminhonete.setText("");
+                }if (precoCarro.getText().equals("0.0")){
+                    precoCarro.setText("");
+                }if(precoMotocicleta.getText().equals("0.0")){
+                    precoCaminhonete.setText("");
+                }
                 if(precoCaminhonete.getText().isEmpty() || precoCarro.getText().isEmpty() || precoMotocicleta.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
+                    precoCarro.setText(Double.toString(sistema.getPrecoCarro()));
+                    precoCaminhonete.setText(Double.toString(sistema.getPrecoCaminhonete()));
+                    precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
+
                 }else{
 
                     sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
@@ -339,29 +355,72 @@ class Interface  {
         }
     }
 
-    private class EntradaHandler implements ActionListener{
+    private class EntradaHandler implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == buttonOKEntrada) {
 
-            if(e.getSource() == buttonOKEntrada){
-                //todo pegar as informaçoes necessarias e char a funcao ja feita
+                try {
+                    if(placaEntrada.getText().isEmpty() || horaEntrada.getText().isEmpty()){
+                        throw new ValorInvalidoException();
+                    }
+                    sistema.registraEntrada(new Automovel(placaEntrada.getText(),Automovel.CARRO),horaEntrada.getText());
+                    entradaVeiculos.dispose();
+                    /*switch (Objects.requireNonNull(categoria.getSelectedItem()).toString()) {
+                        case "Carro":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), horaEntrada.getText());
+                            break;
+                        case "Caminhonete":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CAMINHONETE), horaEntrada.getText());
+                            break;
+                        case "Moto":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.MOTO), horaEntrada.getText());
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE VEICULO", "ERRO", JOptionPane.WARNING_MESSAGE);
+                            break;
+                    }*/
 
-
-                //sistema.registraEntrada();
-            }else if(e.getSource() == buttonBackEntrada){
+                } catch (WriteFileException e1) {
+                    JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO ESCREVER NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                } catch (ValorInvalidoException e2) {
+                    JOptionPane.showMessageDialog(null, "DIGITE UM VALOR VALIDO", "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (e.getSource() == buttonBackEntrada) {
                 entradaVeiculos.dispose();
             }
 
         }
     }
 
+
     private class SaidaHandler implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSaida){
-                //TODO perform saida
-                pagamento.setVisible(true);
+                try{
+                    if(placaSaida.getText().isEmpty() || horaSaida.getText().isEmpty()){
+                        throw new ValorInvalidoException();
+                    }
+                    double aPagar = sistema.registraSaida(new Automovel(placaSaida.getText(),Automovel.CARRO),horaSaida.getText());
+                    infoPlaca.setText(placaSaida.getText());
+                    infoPreco.setText(Double.toString(aPagar));
+                    infoTipo.setText("Carro");
+                    saidaVeiculos.dispose();
+                    pagamento.setVisible(true);
+
+                }catch (WriteFileException e1){
+                    JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO ESCREVER NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                }catch (ReadFileException e2){
+                    JOptionPane.showMessageDialog(null, e2.getMessage(), "ERRO AO LER O ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                }catch (PlacaInexistenteException e3){
+                    JOptionPane.showMessageDialog(null, "PLACA INEXISTENTE", "ERRO", JOptionPane.ERROR_MESSAGE);
+                } catch (ValorInvalidoException e4) {
+                    JOptionPane.showMessageDialog(null, "DIGITE UM VALOR VALIDO", "ERRO", JOptionPane.ERROR_MESSAGE);
+
+                }
             }else if(e.getSource() == buttonBackSaida){
                 saidaVeiculos.dispose();
             }

@@ -4,11 +4,16 @@ public class Vaga {
 
     private Automovel veiculo;
     private String horaEntrada;
+    private String vagaID;
 
 
     Vaga(){
-        veiculo=null;
+        veiculo =null;
+    }
 
+    Vaga(String vagaID){
+        veiculo=null;
+        this.vagaID = vagaID;
     }
     Vaga(Automovel veiculo,String hora){
         this.veiculo=veiculo;
@@ -26,5 +31,12 @@ public class Vaga {
 
     Automovel getVeiculo() {
         return veiculo;
+    }
+
+    String getVagaID() {
+        return vagaID;
+    }
+    void setVagaID(String vagaID){
+        this.vagaID = vagaID;
     }
 }
