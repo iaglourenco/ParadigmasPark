@@ -2,22 +2,20 @@ package com.iaglourenco;
 
 import com.iaglourenco.exceptions.PlacaInexistenteException;
 import com.iaglourenco.exceptions.ReadFileException;
+import com.iaglourenco.exceptions.VagaOcupadaException;
 import com.iaglourenco.exceptions.WriteFileException;
 
-import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
-public class Sistema {
+class Sistema {
 
     private Estacionamento estacionamento = Estacionamento.getInstance();
     private static Sistema system=null;
     private double precoCaminhonete;
     private double precoCarro;
     private double precoMoto;
-    private boolean checked=false;
 
     private String csvVagas = "vagas.csv";
     private String csvHistorico = "history.csv";
@@ -35,7 +33,7 @@ public class Sistema {
     *
     * - motos e caminhonete ficam cada uma em submatrizes de 2X10
     *
-    * */
+    */
 
     /*
     * Arquivos para salvamento
@@ -46,9 +44,7 @@ public class Sistema {
     *   Arquivo de contabilidade = history.csv
     *       guarda todas as entradas e saidas efetuadas
     *
-    *
-    *
-    * */
+    */
 
 
     void setup(){
@@ -77,11 +73,12 @@ public class Sistema {
     }
 
 
-    void registraEntrada(Automovel veiculo,String hora) throws WriteFileException{
-
-        //todo salvar  atualizar o arquivo de vagas
+    void registraEntrada(Automovel veiculo,String hora) throws WriteFileException, VagaOcupadaException {
 
         String vagaOcupada =estacionamento.entra(new Vaga(veiculo,hora));
+        if(vagaOcupada == null){
+            throw new VagaOcupadaException();
+        }
         String day = new SimpleDateFormat("dd/MM/yy").format(new Date(System.currentTimeMillis()));
 
         String info = day+","+ hora+ "," +veiculo.getPlaca()+","+ vagaOcupada+","+0+'\n';
@@ -91,6 +88,7 @@ public class Sistema {
             writer = new BufferedWriter(new FileWriter(csvHistorico,true));
             writer.append(info);
             writer.flush();
+            updateVagasFile();
         }catch (IOException e){
             throw new WriteFileException();
         }
@@ -99,9 +97,7 @@ public class Sistema {
 
     double registraSaida(Automovel veiculo,String hora) throws WriteFileException,ReadFileException,PlacaInexistenteException{
 
-        //todo salvar a transacao no arquivo e atualizar o arquivo de vagas
-
-        double pagamento = 10;
+        double pagamento;
         try{
                    reader = new BufferedReader(new FileReader(csvHistorico));
 
@@ -133,6 +129,7 @@ public class Sistema {
                 writer = new BufferedWriter(new FileWriter(csvHistorico,true));
                 writer.append(info);
                 writer.flush();
+                updateVagasFile();
             }catch (IOException excp){
                 throw new WriteFileException();
             }
@@ -147,6 +144,98 @@ public class Sistema {
         return pagamento;
     }
 
+
+    void updateVagasFile() throws WriteFileException {
+
+        String info;
+
+        try {
+            writer = new BufferedWriter(new FileWriter(csvVagas,false));
+        } catch (IOException e) {
+            throw new WriteFileException();
+        }
+
+
+        for (Vaga v : estacionamento.getPiso1()){
+
+            try {
+                writer = new BufferedWriter(new FileWriter(csvVagas,true));
+                if(v.getVeiculo() == null){
+                     info = v.getVagaID()+","+null+","+null+'\n';
+                }else {
+                     info = v.getVagaID() + "," + v.getVeiculo().getPlaca() + "," + v.getTipoVeiculo() + '\n';
+                }
+                writer.append(info);
+                writer.flush();
+
+            }catch (IOException e){
+                throw new WriteFileException();
+            }
+
+        }
+        for (Vaga v : estacionamento.getTerreoCarro()){
+
+            try {
+                writer = new BufferedWriter(new FileWriter(csvVagas,true));
+                if(v.getVeiculo() == null){
+
+                    info = v.getVagaID()+","+null+","+null+'\n';
+                }else {
+                    info = v.getVagaID() + "," + v.getVeiculo().getPlaca() + "," + v.getTipoVeiculo() + '\n';
+                }
+                writer.append(info);
+                writer.flush();
+
+
+            }catch (IOException e){
+                throw new WriteFileException();
+            }
+
+        }
+        for (Vaga v : estacionamento.getTerreoMoto()){
+
+            try {
+                writer = new BufferedWriter(new FileWriter(csvVagas,true));
+                if(v.getVeiculo() == null){
+
+                    info = v.getVagaID()+","+null+","+null+'\n';
+                }else {
+                    info = v.getVagaID() + "," + v.getVeiculo().getPlaca() + "," + v.getTipoVeiculo() + '\n';
+                }
+                writer.append(info);
+                writer.flush();
+
+
+            }catch (IOException e){
+                throw new WriteFileException();
+            }
+
+        }
+
+        for (Vaga v : estacionamento.getTerreoCaminhonete()){
+
+            try {
+                writer = new BufferedWriter(new FileWriter(csvVagas,true));
+                if(v.getVeiculo() == null){
+
+                    info = v.getVagaID()+","+null+","+null+'\n';
+                }else {
+                    info = v.getVagaID() + "," + v.getVeiculo().getPlaca() + "," + v.getTipoVeiculo() + '\n';
+                }
+                writer.append(info);
+                writer.flush();
+
+            }catch (IOException e){
+                throw new WriteFileException();
+            }
+
+        }
+
+
+
+
+    }
+
     synchronized static Sistema getInstance(){
         if(system == null){
             system = new Sistema();
@@ -155,16 +244,15 @@ public class Sistema {
     }
 
 
-    public double getPrecoCaminhonete() {
+    double getPrecoCaminhonete() {
         return precoCaminhonete;
     }
 
     void setPrecoCaminhonete(double precoCaminhonete) {
-
         this.precoCaminhonete = precoCaminhonete;
     }
 
-    public double getPrecoCarro() {
+    double getPrecoCarro() {
         return precoCarro;
     }
 
@@ -174,7 +262,7 @@ public class Sistema {
 
     }
 
-    public double getPrecoMoto() {
+    double getPrecoMoto() {
         return precoMoto;
     }
 

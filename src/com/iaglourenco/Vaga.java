@@ -25,7 +25,7 @@ public class Vaga {
         return horaEntrada;
     }
 
-    int getTipo() {
+    int getTipoVeiculo() {
         return veiculo.getTipo();
     }
 

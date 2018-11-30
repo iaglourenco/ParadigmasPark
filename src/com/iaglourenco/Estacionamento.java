@@ -20,27 +20,33 @@ class Estacionamento {
     private ArrayList<Vaga> terreoCarro = new ArrayList<>();
     private ArrayList<Vaga> terreoMoto = new ArrayList<>();
     private ArrayList<Vaga> terreoCaminhonete = new ArrayList<>();
+
     private static Estacionamento instance;
 
     private Estacionamento(){
 
-        for(int i = 0 ; i < MAX_CARROS_PISO_1;i++){
+
+        for(int i = 1 ; i <= MAX_CARROS_PISO_1;i++){
             piso1.add(new Vaga(Integer.toString(i)));
         }
-        for(int i = MAX_CARROS_PISO_1 + 1 ; i <= MAX_CARROS_TERREO+MAX_CARROS_PISO_1;i++){
+        for(int i = MAX_CARROS_PISO_1+1 ; i <= MAX_CARROS_TERREO+MAX_CARROS_PISO_1;i++){
             terreoCarro.add(new Vaga(Integer.toString(i)));
         }
-        for(int i =  MAX_CARROS_TERREO+MAX_CARROS_PISO_1 + 1 ; i <= MAX_MOTOS + MAX_CARROS_TERREO+MAX_CARROS_PISO_1;i++){
+        for(int i =  MAX_CARROS_TERREO+MAX_CARROS_PISO_1+1 ; i <= MAX_MOTOS + MAX_CARROS_TERREO+MAX_CARROS_PISO_1;i++){
             terreoMoto.add(new Vaga(Integer.toString(i)));
+        }
+
+        for(int i =  MAX_MOTOS + MAX_CARROS_TERREO+MAX_CARROS_PISO_1  +1; i <= MAX_MOTOS + MAX_CARROS_TERREO+MAX_CARROS_PISO_1+MAX_CAMINHONETES;i++){
             terreoCaminhonete.add(new Vaga(Integer.toString(i)));
         }
+
 
 
     }
 
     String entra(Vaga vaga){
 
-        switch (vaga.getTipo()){
+        switch (vaga.getTipoVeiculo()){
 
             case Automovel.CAMINHONETE:
                 if(qtdCaminhonetes < MAX_CAMINHONETES) {
@@ -52,6 +58,8 @@ class Estacionamento {
                             terreoCaminhonete.set(i,vaga);
                             qtdCaminhonetes++;
                             break;
+                        }else if(terreoCaminhonete.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                            return null;
                         }
                     }
                     return vaga.getVagaID();
@@ -67,6 +75,8 @@ class Estacionamento {
                             piso1.set(i,vaga);
                             qtdPiso1++;
                             break;
+                        }else if(piso1.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                            return null;
                         }
                     }
                     return vaga.getVagaID();
@@ -79,6 +89,8 @@ class Estacionamento {
                             terreoCarro.set(i,vaga);
                             qtdTerreoCarros++;
                             break;
+                        }else if(terreoCarro.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                            return null;
                         }
                     }
                     return vaga.getVagaID();
@@ -94,6 +106,8 @@ class Estacionamento {
                             terreoMoto.set(i,vaga);
                             qtdMotos++;
                             break;
+                        }else if(terreoMoto.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                            return null;
                         }
                     }
                     return vaga.getVagaID();
@@ -109,7 +123,7 @@ class Estacionamento {
         switch (automovel.getTipo()){
 
             case Automovel.CAMINHONETE:
-                for(int i=0;i<MAX_CAMINHONETES;i++){
+                for(int i=0;i<terreoCaminhonete.size();i++){
                     if(terreoCaminhonete.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
                         String id = terreoCaminhonete.get(i).getVagaID();
                         terreoCaminhonete.set(i,new Vaga(id));
@@ -119,7 +133,7 @@ class Estacionamento {
                 }
                 break;
             case Automovel.CARRO:
-                for(int i=0;i<MAX_CARROS_PISO_1;i++){
+                for(int i=0;i<piso1.size();i++){
                     if(piso1.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
                         String id = piso1.get(i).getVagaID();
                         piso1.set(i,new Vaga(id));
@@ -127,7 +141,7 @@ class Estacionamento {
                         return id;
                     }
                 }
-                for(int i=0;i<MAX_CARROS_TERREO;i++){
+                for(int i=0;i<terreoCarro.size();i++){
                     if(terreoCarro.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
                         String id = terreoCarro.get(i).getVagaID();
                         terreoCarro.set(i,new Vaga(id));
@@ -137,10 +151,10 @@ class Estacionamento {
                 }
                 break;
             case Automovel.MOTO:
-                for(int i=0;i<MAX_MOTOS;i++){
+                for(int i=0;i<terreoMoto.size();i++){
                     if(terreoMoto.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())){
                         String id = terreoMoto.get(i).getVagaID();
-                        terreoMoto.set(i,new Vaga());
+                        terreoMoto.set(i,new Vaga(id));
                         qtdMotos--;
                         return id;
                     }
@@ -159,6 +173,11 @@ class Estacionamento {
         }
         return instance;
     }
+
+    ArrayList<Vaga> getPiso1(){return piso1;}
+    ArrayList<Vaga> getTerreoCarro(){return terreoCarro;}
+    ArrayList<Vaga> getTerreoMoto(){return terreoMoto;}
+    ArrayList<Vaga> getTerreoCaminhonete(){return terreoCaminhonete;}
 
 
 }

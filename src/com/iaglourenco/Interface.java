@@ -1,16 +1,13 @@
 package com.iaglourenco;
 
-import com.iaglourenco.exceptions.PlacaInexistenteException;
-import com.iaglourenco.exceptions.ReadFileException;
-import com.iaglourenco.exceptions.ValorInvalidoException;
-import com.iaglourenco.exceptions.WriteFileException;
-import jdk.nashorn.internal.scripts.JO;
+import com.iaglourenco.exceptions.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 class Interface  {
 
@@ -75,6 +72,11 @@ class Interface  {
         initSetup();
         setupEstacionamento.setVisible(true);
         sistema.setup();
+        try {
+            sistema.updateVagasFile();
+        } catch (WriteFileException e) {
+            JOptionPane.showMessageDialog(null,e.getMessage(),"ERRO AO ESCREVER ARQUIVO",JOptionPane.ERROR_MESSAGE);
+        }
         initEntrada();
         initSaida();
         initPagamento();
@@ -365,9 +367,7 @@ class Interface  {
                     if(placaEntrada.getText().isEmpty() || horaEntrada.getText().isEmpty()){
                         throw new ValorInvalidoException();
                     }
-                    sistema.registraEntrada(new Automovel(placaEntrada.getText(),Automovel.CARRO),horaEntrada.getText());
-                    entradaVeiculos.dispose();
-                    /*switch (Objects.requireNonNull(categoria.getSelectedItem()).toString()) {
+                    switch (Objects.requireNonNull(categoria.getSelectedItem()).toString()) {
                         case "Carro":
                             sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), horaEntrada.getText());
                             break;
@@ -380,12 +380,15 @@ class Interface  {
                         default:
                             JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE VEICULO", "ERRO", JOptionPane.WARNING_MESSAGE);
                             break;
-                    }*/
+                    }
+                    entradaVeiculos.dispose();
 
                 } catch (WriteFileException e1) {
                     JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO ESCREVER NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
                 } catch (ValorInvalidoException e2) {
                     JOptionPane.showMessageDialog(null, "DIGITE UM VALOR VALIDO", "ERRO", JOptionPane.ERROR_MESSAGE);
+                } catch (VagaOcupadaException e3) {
+                    JOptionPane.showMessageDialog(null, "VEICULO JA CADASTRADO", "ERRO", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (e.getSource() == buttonBackEntrada) {
                 entradaVeiculos.dispose();

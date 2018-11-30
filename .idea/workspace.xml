@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c2c5834-1b09-4a31-a55a-d1111468d8f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/iaglourenco/exceptions/PlacaInexistenteException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/iaglourenco/exceptions/ReadFileException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/iaglourenco/exceptions/WriteFileException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Automovel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Automovel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$ContabileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$ContabileHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$EntradaHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$EntradaHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SaidaHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SaidaHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Programa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Programa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Automovel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Automovel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" afterDir="false" />
@@ -38,23 +21,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="288" column="57" selection-start-line="288" selection-start-column="57" selection-end-line="288" selection-end-column="57" />
+            <state relative-caret-position="289">
+              <caret line="378" column="34" selection-start-line="378" selection-start-column="34" selection-end-line="378" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2980#5777#0" />
-                <element signature="e#5783#6395#0" />
-                <element signature="e#6401#7243#0" />
-                <element signature="e#7249#7985#0" />
-                <element signature="e#7991#8738#0" />
-                <element signature="e#8744#9317#0" />
-                <element signature="e#9323#10292#0" />
-                <element signature="e#10299#10471#0" />
-                <element signature="e#10479#11581#0" />
-                <element signature="e#11587#12764#0" />
-                <element signature="e#12731#14312#0" />
-                <element signature="e#13503#13884#0" />
-                <element signature="e#13890#14146#0" />
+                <element signature="e#3180#3230#0" />
+                <element signature="e#3260#3304#0" />
+                <element signature="e#3303#5941#0" />
+                <element signature="e#5947#6598#0" />
+                <element signature="e#6604#7627#0" />
+                <element signature="e#7633#8369#0" />
+                <element signature="e#8375#9122#0" />
+                <element signature="e#9128#9701#0" />
+                <element signature="e#9707#10577#0" />
+                <element signature="e#10584#10756#0" />
+                <element signature="e#10764#12048#0" />
+                <element signature="e#12054#13840#0" />
+                <element signature="e#15854#17456#0" />
+                <element signature="e#17462#17718#0" />
               </folding>
             </state>
           </provider>
@@ -63,16 +47,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="116" column="55" lean-forward="true" selection-start-line="116" selection-start-column="55" selection-end-line="116" selection-end-column="55" />
+            <state relative-caret-position="425">
+              <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setup#0;class#Sistema#0" />
                 <element signature="method#registraEntrada#0;class#Sistema#0" />
-                <element signature="e#4597#4598#0" expanded="true" />
-                <element signature="e#4636#4637#0" expanded="true" />
-                <element signature="e#4947#4948#0" expanded="true" />
-                <element signature="e#4979#4980#0" expanded="true" />
+                <element signature="method#registraSaida#0;class#Sistema#0" />
+                <element signature="method#updateVagas#0;class#Sistema#0" />
+                <element signature="method#getInstance#0;class#Sistema#0" />
+                <element signature="e#7502#7503#0" expanded="true" />
+                <element signature="e#7615#7616#0" expanded="true" />
+                <element signature="e#7678#7679#0" expanded="true" />
+                <element signature="e#7830#7831#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,12 +121,13 @@
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/ValorInvalidoException.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Programa.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/WriteFileException.java" />
-        <option value="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Automovel.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/ReadFileException.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/PlacaInexistenteException.java" />
-        <option value="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" />
         <option value="$PROJECT_DIR$/history.csv" />
+        <option value="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" />
+        <option value="$PROJECT_DIR$/vagas.csv" />
+        <option value="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" />
       </list>
@@ -236,6 +224,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="iaglourenco" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ParadigmasPark" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ParadigmasPark" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="iaglourenco" type="462c0819:PsiDirectoryNode" />
+              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -245,7 +240,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543523438097" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543523657038" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -309,14 +304,30 @@
       <option name="project" value="LOCAL" />
       <updated>1543082695642</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Parte do backend quase concluida&#10;&#10;mexi em todas as classes&#10;&#10;so falta salvar um arquivo que usa para carregar o sistema mesmo depois de fechado&#10;&#10;entrada e saida funcionando">
+      <created>1543523625835</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1543523625835</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28517398" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.28971255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -329,7 +340,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
@@ -429,7 +440,8 @@
     <MESSAGE value="Maioria dos layouts feitos&#10;&#10;ja pega a hora do sistema&#10;&#10;frame de pagamento ok&#10;&#10;frame de setup,saida,entrada ok&#10;&#10;falta somente vizualizaçao de vagas ocupadas e disponiveis (matriz)&#10;&#10;falta a contabilidade &#10;&#10;falta o backend&#10;&#10;muito trabalho pra fazer" />
     <MESSAGE value="Merge from master" />
     <MESSAGE value="Ja esta salvando os precos&#10;&#10;fiz as funcoes de entrada e saida do estacionamento, &#10;ta meio feio mas acho que funciona" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ja esta salvando os precos&#10;&#10;fiz as funcoes de entrada e saida do estacionamento, &#10;ta meio feio mas acho que funciona" />
+    <MESSAGE value="Parte do backend quase concluida&#10;&#10;mexi em todas as classes&#10;&#10;so falta salvar um arquivo que usa para carregar o sistema mesmo depois de fechado&#10;&#10;entrada e saida funcionando" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parte do backend quase concluida&#10;&#10;mexi em todas as classes&#10;&#10;so falta salvar um arquivo que usa para carregar o sistema mesmo depois de fechado&#10;&#10;entrada e saida funcionando" />
   </component>
   <component name="WindowStateProjectService">
     <state width="192" height="246" key="Git.Branch.Popup" />
@@ -504,23 +516,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Vaga.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#149#150#0" expanded="true" />
-            <element signature="e#178#179#0" expanded="true" />
-            <element signature="e#464#465#0" expanded="true" />
-            <element signature="e#504#505#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
-            <element signature="e#590#591#0" expanded="true" />
-            <element signature="e#619#620#0" expanded="true" />
-            <element signature="e#654#655#0" expanded="true" />
-            <element signature="e#690#691#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/history.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Automovel.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -529,10 +526,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Vaga.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#149#150#0" expanded="true" />
+            <element signature="e#178#179#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#541#542#0" expanded="true" />
+            <element signature="e#571#572#0" expanded="true" />
+            <element signature="e#597#598#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vagas.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        <state relative-caret-position="266">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
             <element signature="method#entra#0;class#Estacionamento#0" />
             <element signature="method#sai#0;class#Estacionamento#0" />
@@ -541,44 +562,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/history.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="116" column="55" lean-forward="true" selection-start-line="116" selection-start-column="55" selection-end-line="116" selection-end-column="55" />
+        <state relative-caret-position="425">
+          <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setup#0;class#Sistema#0" />
             <element signature="method#registraEntrada#0;class#Sistema#0" />
-            <element signature="e#4597#4598#0" expanded="true" />
-            <element signature="e#4636#4637#0" expanded="true" />
-            <element signature="e#4947#4948#0" expanded="true" />
-            <element signature="e#4979#4980#0" expanded="true" />
+            <element signature="method#registraSaida#0;class#Sistema#0" />
+            <element signature="method#updateVagas#0;class#Sistema#0" />
+            <element signature="method#getInstance#0;class#Sistema#0" />
+            <element signature="e#7502#7503#0" expanded="true" />
+            <element signature="e#7615#7616#0" expanded="true" />
+            <element signature="e#7678#7679#0" expanded="true" />
+            <element signature="e#7830#7831#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="288" column="57" selection-start-line="288" selection-start-column="57" selection-end-line="288" selection-end-column="57" />
+        <state relative-caret-position="289">
+          <caret line="378" column="34" selection-start-line="378" selection-start-column="34" selection-end-line="378" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2980#5777#0" />
-            <element signature="e#5783#6395#0" />
-            <element signature="e#6401#7243#0" />
-            <element signature="e#7249#7985#0" />
-            <element signature="e#7991#8738#0" />
-            <element signature="e#8744#9317#0" />
-            <element signature="e#9323#10292#0" />
-            <element signature="e#10299#10471#0" />
-            <element signature="e#10479#11581#0" />
-            <element signature="e#11587#12764#0" />
-            <element signature="e#12731#14312#0" />
-            <element signature="e#13503#13884#0" />
-            <element signature="e#13890#14146#0" />
+            <element signature="e#3180#3230#0" />
+            <element signature="e#3260#3304#0" />
+            <element signature="e#3303#5941#0" />
+            <element signature="e#5947#6598#0" />
+            <element signature="e#6604#7627#0" />
+            <element signature="e#7633#8369#0" />
+            <element signature="e#8375#9122#0" />
+            <element signature="e#9128#9701#0" />
+            <element signature="e#9707#10577#0" />
+            <element signature="e#10584#10756#0" />
+            <element signature="e#10764#12048#0" />
+            <element signature="e#12054#13840#0" />
+            <element signature="e#15854#17456#0" />
+            <element signature="e#17462#17718#0" />
           </folding>
         </state>
       </provider>
