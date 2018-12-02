@@ -1,11 +1,13 @@
 package com.iaglourenco;
 
+import com.iaglourenco.exceptions.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Objects;
 
 class Interface  {
 
@@ -18,12 +20,13 @@ class Interface  {
     private JFrame contabilidade = new JFrame();
     private JFrame status = new JFrame();
     private JFrame pagamento = new JFrame();
-    private Dimension frameDimension = new Dimension(800,600);
+    private Dimension frameDimension = new Dimension(1000,700);
     private Dimension popupDimension = new Dimension(300,260);
 
     private JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
     private JButton buttonSaida=new JButton("Registrar saida");//registrar saida
     private JButton buttonContabilidade = new JButton("Contabilidade");
+    private JButton buttonSetup = new JButton("Configurar preÃ§os");
     private JButton buttonExit=new JButton("Sair");//sair do programa
     private JButton buttonTerreo =new JButton("Terreo");//visualizar piso terreo
     private JButton buttonPriPiso =new JButton("1° Piso");//visualizar primeiro piso
@@ -32,21 +35,15 @@ class Interface  {
     private JTextArea infoCaminhonete = new JTextArea();
     private JPanel panel1Status = new JPanel(new FlowLayout());
     private JPanel panel2Status = new JPanel(new FlowLayout());
+    
     private JPanel carroStatus = new JPanel(new FlowLayout());
     private JPanel caminhoneteStatus = new JPanel(new FlowLayout());
     private JPanel motoStatus = new JPanel(new FlowLayout());
     
-    Icon carro = new ImageIcon(getClass().getResource("buttonCarGreen.png"));
-    //carro.setImage(carro.getImage().getScaledInstance(50, 50, 100));
-    private JButton buttonEstacCarro = new JButton(carro);
-
-    Icon caminhonete = new ImageIcon(getClass().getResource("buttonCaminhonteGreen.png"));
-    private JButton buttonEstacCaminhonete = new JButton(caminhonete);
+    private JButton buttonEstacCarro[] = new JButton[160];
+    private JButton buttonEstacCaminhonete[] = new JButton[20];
+    private JButton buttonEstacMoto[] = new JButton[20];
     
-    Icon moto = new ImageIcon(getClass().getResource("buttonMotocycleGreen.png"));
-    private JButton buttonEstacMoto = new JButton(moto);
-
-
     private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));//TODO encontrar um layout melhor
     private JTextField precoCaminhonete = new JTextField();
     private JTextField precoCarro = new JTextField();
@@ -86,6 +83,13 @@ class Interface  {
     private  Interface(){
         initialize();
         //initSetup();
+        setupEstacionamento.setVisible(true);
+        sistema.setup();
+        try {
+            sistema.updateVagasFile();
+        } catch (WriteFileException e) {
+            JOptionPane.showMessageDialog(null,e.getMessage(),"ERRO AO ESCREVER ARQUIVO",JOptionPane.ERROR_MESSAGE);
+        }
         initEntrada();
         initSaida();
         initPagamento();
@@ -98,6 +102,7 @@ class Interface  {
         buttonEntrada.addActionListener(new StatusHandler());
         buttonSaida.addActionListener(new StatusHandler());
         buttonContabilidade.addActionListener(new StatusHandler());
+        buttonSetup.addActionListener(new StatusHandler());
         buttonExit.addActionListener(new StatusHandler());
         buttonTerreo.addActionListener(new StatusHandler());
         buttonPriPiso.addActionListener(new StatusHandler());
@@ -145,7 +150,6 @@ class Interface  {
             }
         });
 
-
         categoria.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -153,6 +157,7 @@ class Interface  {
                 System.out.println(e.getItem().toString());
             }
         });
+
 
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
@@ -171,14 +176,14 @@ class Interface  {
         status.setResizable(false);
         status.setLocationRelativeTo(null);
         status.setTitle("Paradigmas-B [Controle de Estacionamento]");
-        
-        //STATUS TERREO
+
+      //STATUS TERREO
         panel2Status.add(buttonTerreo);
         
         //STATUS 1°PISO
         panel2Status.add(buttonPriPiso);
         
-        //Visualização Geral
+      //Visualização Geral
         panel2Status.add(new JLabel("                                              Carros "));
         panel2Status.add(infoCarro);
         infoCarro.setEditable(false);
@@ -197,32 +202,54 @@ class Interface  {
         panel1Status.add(buttonEntrada);
         panel1Status.add(buttonSaida);
         panel1Status.add(buttonContabilidade);
+        panel1Status.add(buttonSetup);
         panel1Status.add(buttonExit);
         
         //TODO inicializar a visualizacao de vagas disponiveis
-        buttonEstacCarro.setOpaque(false);
-        buttonEstacCarro.setContentAreaFilled(false);
-        buttonEstacCarro.setBorderPainted(false);
-        buttonEstacCarro.setPreferredSize(new Dimension(150,100));
-        carroStatus.setLocation(100,100);
-        carroStatus.add(buttonEstacCarro);
-                
-        buttonEstacMoto.setOpaque(false);
-        buttonEstacMoto.setContentAreaFilled(false);
-        buttonEstacMoto.setBorderPainted(false);
-        buttonEstacMoto.setPreferredSize(new Dimension(150,100));
-        motoStatus.add(buttonEstacMoto);
+        //buttonEstacCarro.setOpaque(false);
+        //buttonEstacCarro.setContentAreaFilled(false);
+        //buttonEstacCarro.setBorderPainted(false);
         
-        buttonEstacCaminhonete.setOpaque(false);
-        buttonEstacCaminhonete.setContentAreaFilled(false);
-        buttonEstacCaminhonete.setBorderPainted(false);
-        buttonEstacCaminhonete.setPreferredSize(new Dimension(150,100));
-        caminhoneteStatus.add(buttonEstacCaminhonete);
+        carroStatus.setPreferredSize(new Dimension(250, 300));
+        for(int i = 0; i < 160; i++) {
+        	buttonEstacCarro[i] = new JButton(String.valueOf(i));
+        	buttonEstacCarro[i].setSize(4,6);
+            buttonEstacCarro[i].setBackground(Color.green);
+            buttonEstacCarro[i].setText("C"+i);
+            carroStatus.add(buttonEstacCarro[i]);
+        }
         
+        //buttonEstacCaminhonete.setOpaque(false);
+        //buttonEstacCaminhonete.setContentAreaFilled(false);
+        //buttonEstacCaminhonete.setBorderPainted(false);
+        //buttonEstacCaminhonete.setPreferredSize(new Dimension(150,100));
+        caminhoneteStatus.setPreferredSize(new Dimension(150, 100));
+        for(int i = 0; i < 20; i++) {
+        	buttonEstacCaminhonete[i] = new JButton(String.valueOf(i));
+        	buttonEstacCaminhonete[i].setSize(4,6);
+            buttonEstacCaminhonete[i].setBackground(Color.blue);
+            buttonEstacCaminhonete[i].setText("Ca"+i);
+            caminhoneteStatus.add(buttonEstacCaminhonete[i]);
+        }
+        
+        //buttonEstacMoto.setOpaque(false);
+        //buttonEstacMoto.setContentAreaFilled(false);
+        //buttonEstacMoto.setBorderPainted(false);
+        //buttonEstacMoto.setPreferredSize(new Dimension(150,100));
+        motoStatus.setPreferredSize(new Dimension(150, 100));
+        for(int i = 0; i < 20; i++) {
+        	buttonEstacMoto[i] = new JButton(String.valueOf(i));
+        	buttonEstacMoto[i].setSize(4,6);
+            buttonEstacMoto[i].setBackground(Color.red);
+            buttonEstacMoto[i].setText("M"+i);
+            motoStatus.add(buttonEstacMoto[i]);
+        }
+        
+
         status.add(panel1Status,BorderLayout.SOUTH);
         status.add(panel2Status,BorderLayout.NORTH);
-        status.add(carroStatus,BorderLayout.LINE_START);
-        status.add(caminhoneteStatus,BorderLayout.CENTER);
+        status.add(carroStatus,BorderLayout.CENTER);
+        status.add(caminhoneteStatus,BorderLayout.LINE_START);
         status.add(motoStatus,BorderLayout.LINE_END);
         status.setVisible(true);
     }
@@ -244,12 +271,14 @@ class Interface  {
         panel1Setup.add(new JLabel("Motocicletas / R$:"));
         panel1Setup.add(precoMotocicleta);
 
+        precoCarro.setText(Double.toString(sistema.getPrecoCarro()));
+        precoCaminhonete.setText(Double.toString(sistema.getPrecoCaminhonete()));
+        precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
+
         panel1Setup.add(buttonOKSetup);
         panel1Setup.add(buttonClearSetup);
 
         setupEstacionamento.add(panel1Setup,BorderLayout.CENTER);
-
-        setupEstacionamento.setVisible(true);
 
     }
 
@@ -274,7 +303,7 @@ class Interface  {
         saidaVeiculos.add(panelSaida);
 
     }
-    
+
     private void initEntrada(){
         //LAYOUT REGISTRO DE ENTRADA
         entradaVeiculos.setLayout(new BorderLayout());
@@ -323,10 +352,6 @@ class Interface  {
         infoPlaca.setEditable(false);
         infoTipo.setEditable(false);
         infoPreco.setEditable(false);
-        infoPlaca.setText("JIW-1698");
-        infoPreco.setText("2000");
-        infoTipo.setText("Carro");
-        //TODO pegar do arquivo e calcular o valor a pagar
         panelPagamento.setLayout(new GridLayout(7,0,10,10));
         panelPagamento.add(new JLabel("Placa"));
         panelPagamento.add(infoPlaca);
@@ -335,8 +360,7 @@ class Interface  {
         panelPagamento.add(new JLabel("Valor"));
         panelPagamento.add(infoPreco);
         panelPagamento.add(buttonOKPagamento);
-
-
+        buttonOKPagamento.addActionListener(e -> pagamento.dispose());
 
         pagamento.add(panelPagamento,BorderLayout.CENTER);
 
@@ -360,13 +384,17 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonEntrada){
-                horaEntrada.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                placaEntrada.setText("");
+                horaEntrada.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonSaida){
-                horaSaida.setText(new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                placaSaida.setText("");
+                horaSaida.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
                 saidaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonContabilidade){
                 contabilidade.setVisible(true);
+            }else if(e.getSource() == buttonSetup){
+                setupEstacionamento.setVisible(true);
             }else if(e.getSource() == buttonExit){
                 if(JOptionPane.showConfirmDialog
                         (null,"Tem certeza?",
@@ -378,7 +406,7 @@ class Interface  {
 
                 }
 
-            } else if(e.getSource() == buttonTerreo) {
+            } /*else if(e.getSource() == buttonTerreo) {
             	motoStatus.setVisible(true);
             	caminhoneteStatus.setVisible(true);
             	carroStatus.setVisible(false);
@@ -389,7 +417,8 @@ class Interface  {
             	motoStatus.setVisible(false);
             	caminhoneteStatus.setVisible(false);
             	
-            } 
+            }*/ 
+
         }
     }
 
@@ -398,8 +427,19 @@ class Interface  {
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSetup){
+                if(precoCaminhonete.getText().equals("0.0")){
+                    precoCaminhonete.setText("");
+                }if (precoCarro.getText().equals("0.0")){
+                    precoCarro.setText("");
+                }if(precoMotocicleta.getText().equals("0.0")){
+                    precoCaminhonete.setText("");
+                }
                 if(precoCaminhonete.getText().isEmpty() || precoCarro.getText().isEmpty() || precoMotocicleta.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
+                    precoCarro.setText(Double.toString(sistema.getPrecoCarro()));
+                    precoCaminhonete.setText(Double.toString(sistema.getPrecoCaminhonete()));
+                    precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
+
                 }else{
 
                     sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
@@ -418,29 +458,73 @@ class Interface  {
         }
     }
 
-    private class EntradaHandler implements ActionListener{
+    private class EntradaHandler implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == buttonOKEntrada) {
 
-            if(e.getSource() == buttonOKEntrada){
-                //todo pegar as informaÃ§oes necessarias e char a funcao ja feita
+                try {
+                    if(placaEntrada.getText().isEmpty() || horaEntrada.getText().isEmpty()){
+                        throw new ValorInvalidoException();
+                    }
+                    switch (Objects.requireNonNull(categoria.getSelectedItem()).toString()) {
+                        case "Carro":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), horaEntrada.getText());
+                            break;
+                        case "Caminhonete":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CAMINHONETE), horaEntrada.getText());
+                            break;
+                        case "Moto":
+                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.MOTO), horaEntrada.getText());
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE VEICULO", "ERRO", JOptionPane.WARNING_MESSAGE);
+                            break;
+                    }
+                    entradaVeiculos.dispose();
 
-
-                //sistema.registraEntrada();
-            }else if(e.getSource() == buttonBackEntrada){
+                } catch (WriteFileException e1) {
+                    JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO ESCREVER NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                } catch (ValorInvalidoException e2) {
+                    JOptionPane.showMessageDialog(null, "DIGITE UM VALOR VALIDO", "ERRO", JOptionPane.ERROR_MESSAGE);
+                } catch (VagaOcupadaException e3) {
+                    JOptionPane.showMessageDialog(null, "VEICULO JA CADASTRADO", "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (e.getSource() == buttonBackEntrada) {
                 entradaVeiculos.dispose();
             }
 
         }
     }
 
+
     private class SaidaHandler implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == buttonOKSaida){
-                //TODO perform saida
-                pagamento.setVisible(true);
+                try{
+                    if(placaSaida.getText().isEmpty() || horaSaida.getText().isEmpty()){
+                        throw new ValorInvalidoException();
+                    }
+                    double aPagar = sistema.registraSaida(new Automovel(placaSaida.getText(),Automovel.CARRO),horaSaida.getText());
+                    infoPlaca.setText(placaSaida.getText());
+                    infoPreco.setText(Double.toString(aPagar));
+                    infoTipo.setText("Carro");
+                    saidaVeiculos.dispose();
+                    pagamento.setVisible(true);
+
+                }catch (WriteFileException e1){
+                    JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO ESCREVER NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                }catch (ReadFileException e2){
+                    JOptionPane.showMessageDialog(null, e2.getMessage(), "ERRO AO LER O ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                }catch (PlacaInexistenteException e3){
+                    JOptionPane.showMessageDialog(null, "PLACA INEXISTENTE", "ERRO", JOptionPane.ERROR_MESSAGE);
+                } catch (ValorInvalidoException e4) {
+                    JOptionPane.showMessageDialog(null, "DIGITE UM VALOR VALIDO", "ERRO", JOptionPane.ERROR_MESSAGE);
+
+                }
             }else if(e.getSource() == buttonBackSaida){
                 saidaVeiculos.dispose();
             }
