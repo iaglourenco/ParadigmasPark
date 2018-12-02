@@ -20,7 +20,7 @@ class Interface  {
     private JFrame contabilidade = new JFrame();
     private JFrame status = new JFrame();
     private JFrame pagamento = new JFrame();
-    private Dimension frameDimension = new Dimension(1000,700);
+    private Dimension frameDimension = new Dimension(1000,820);
     private Dimension popupDimension = new Dimension(300,260);
 
     private JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
@@ -82,7 +82,7 @@ class Interface  {
 
     private  Interface(){
         initialize();
-        //initSetup();
+        initSetup();
         setupEstacionamento.setVisible(true);
         sistema.setup();
         try {
@@ -206,46 +206,52 @@ class Interface  {
         panel1Status.add(buttonExit);
         
         //TODO inicializar a visualizacao de vagas disponiveis
-        //buttonEstacCarro.setOpaque(false);
-        //buttonEstacCarro.setContentAreaFilled(false);
-        //buttonEstacCarro.setBorderPainted(false);
+        ImageIcon carro = new ImageIcon(getClass().getResource("carro.png"));
+        carro.setImage(carro.getImage().getScaledInstance(40, 40, 100));
+        ImageIcon caminhonete = new ImageIcon(getClass().getResource("caminhonete.png"));
+        caminhonete.setImage(caminhonete.getImage().getScaledInstance(40, 40, 100));
+        ImageIcon moto = new ImageIcon(getClass().getResource("moto.png"));
+        moto.setImage(moto.getImage().getScaledInstance(40, 40, 100));
         
-        carroStatus.setPreferredSize(new Dimension(250, 300));
+        carroStatus.setPreferredSize(new Dimension(300, 100));
         for(int i = 0; i < 160; i++) {
-        	buttonEstacCarro[i] = new JButton(String.valueOf(i));
-        	buttonEstacCarro[i].setSize(4,6);
+        	buttonEstacCarro[i] = new JButton();
+        	
+        	buttonEstacCarro[i].setPreferredSize(new Dimension(50, 45));
             buttonEstacCarro[i].setBackground(Color.green);
-            buttonEstacCarro[i].setText("C"+i);
+            //buttonEstacCarro[i].setText(" "+i);
+            buttonEstacCarro[i].setIcon(carro);
+            buttonEstacCarro[i].setVisible(true);
             carroStatus.add(buttonEstacCarro[i]);
         }
         
-        //buttonEstacCaminhonete.setOpaque(false);
-        //buttonEstacCaminhonete.setContentAreaFilled(false);
-        //buttonEstacCaminhonete.setBorderPainted(false);
-        //buttonEstacCaminhonete.setPreferredSize(new Dimension(150,100));
         caminhoneteStatus.setPreferredSize(new Dimension(150, 100));
         for(int i = 0; i < 20; i++) {
-        	buttonEstacCaminhonete[i] = new JButton(String.valueOf(i));
-        	buttonEstacCaminhonete[i].setSize(4,6);
-            buttonEstacCaminhonete[i].setBackground(Color.blue);
-            buttonEstacCaminhonete[i].setText("Ca"+i);
+        	buttonEstacCaminhonete[i] = new JButton();
+        	
+        	buttonEstacCaminhonete[i].setPreferredSize(new Dimension(50, 50));
+            buttonEstacCaminhonete[i].setBackground(Color.green);
+            //buttonEstacCaminhonete[i].setText(" "+i);
+            buttonEstacCaminhonete[i].setIcon(caminhonete);
+            buttonEstacCaminhonete[i].setVisible(true);
             caminhoneteStatus.add(buttonEstacCaminhonete[i]);
         }
         
-        //buttonEstacMoto.setOpaque(false);
-        //buttonEstacMoto.setContentAreaFilled(false);
-        //buttonEstacMoto.setBorderPainted(false);
-        //buttonEstacMoto.setPreferredSize(new Dimension(150,100));
         motoStatus.setPreferredSize(new Dimension(150, 100));
         for(int i = 0; i < 20; i++) {
-        	buttonEstacMoto[i] = new JButton(String.valueOf(i));
-        	buttonEstacMoto[i].setSize(4,6);
-            buttonEstacMoto[i].setBackground(Color.red);
-            buttonEstacMoto[i].setText("M"+i);
+        	buttonEstacMoto[i] = new JButton();
+        	
+        	buttonEstacMoto[i].setPreferredSize(new Dimension(50, 50));
+            buttonEstacMoto[i].setBackground(Color.green);
+            //buttonEstacMoto[i].setText(" "+i);
+            buttonEstacMoto[i].setIcon(moto);
+            buttonEstacMoto[i].setVisible(true);
             motoStatus.add(buttonEstacMoto[i]);
         }
         
-
+        panel1Status.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3.0f)));
+        panel2Status.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3.0f)));
+        
         status.add(panel1Status,BorderLayout.SOUTH);
         status.add(panel2Status,BorderLayout.NORTH);
         status.add(carroStatus,BorderLayout.CENTER);
@@ -282,6 +288,28 @@ class Interface  {
 
     }
 
+    private void initEntrada(){
+        //LAYOUT REGISTRO DE ENTRADA
+        entradaVeiculos.setLayout(new BorderLayout());
+        entradaVeiculos.setSize(popupDimension);
+        entradaVeiculos.setResizable(false);
+        entradaVeiculos.setLocationRelativeTo(null);
+        entradaVeiculos.setTitle("Registrar entrada");
+
+        panelEntrada.add(new JLabel("Placa do Veiculo"));
+        panelEntrada.add(placaEntrada);
+        panelEntrada.add(new JLabel("Horario de Entrada"));
+        panelEntrada.add(horaEntrada);
+        categoria = new JComboBox<>(names);
+        categoria.setMaximumRowCount(names.length);
+        panelEntrada.add(categoria);
+        panelEntrada.add(buttonOKEntrada);
+        panelEntrada.add(buttonBackEntrada);
+
+        entradaVeiculos.add(panelEntrada);
+
+    }
+    
     private void initSaida(){
         //LAYOUT REGISTRO DE SAIDA
         saidaVeiculos.setLayout(new BorderLayout());
@@ -295,35 +323,14 @@ class Interface  {
         panelSaida.add(new JLabel("Horario de Saida"));
         panelSaida.add(horaSaida);
         categoria = new JComboBox<>(names);
-        categoria.setMaximumRowCount(3);
+        categoria.setMaximumRowCount(names.length);
         panelSaida.add(categoria);
         panelSaida.add(buttonOKSaida);
         panelSaida.add(buttonBackSaida);
 
         saidaVeiculos.add(panelSaida);
 
-    }
-
-    private void initEntrada(){
-        //LAYOUT REGISTRO DE ENTRADA
-        entradaVeiculos.setLayout(new BorderLayout());
-        entradaVeiculos.setSize(popupDimension);
-        entradaVeiculos.setResizable(false);
-        entradaVeiculos.setLocationRelativeTo(null);
-        entradaVeiculos.setTitle("Registrar entrada");
-
-        panelEntrada.add(new JLabel("Placa do Veiculo"));
-        panelEntrada.add(placaEntrada);
-        panelEntrada.add(new JLabel("Horario de Entrada"));
-        panelEntrada.add(horaEntrada);
-        categoria.setMaximumRowCount(names.length);
-        panelEntrada.add(categoria);
-        panelEntrada.add(buttonOKEntrada);
-        panelEntrada.add(buttonBackEntrada);
-
-        entradaVeiculos.add(panelEntrada);
-
-    }
+    }  
 
     private void initContabilidade(){
         //LAYOUT CONTROLE DA CONTABILIDADE
