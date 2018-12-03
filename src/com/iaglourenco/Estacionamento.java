@@ -2,6 +2,8 @@ package com.iaglourenco;
 
 
 
+import com.iaglourenco.exceptions.EstacionamentoCheioException;
+
 import java.util.ArrayList;
 
 class Estacionamento {
@@ -44,7 +46,44 @@ class Estacionamento {
 
     }
 
-    String entra(Vaga vaga){
+
+    private boolean placaCadastrada(String placa){
+
+
+        for (Vaga vaga : terreoCarro) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equals(placa)) {
+                    return true;
+                }
+        }
+
+        for (Vaga vaga : piso1) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equals(placa)) {
+                return true;
+            }
+        }
+
+        for (Vaga vaga : terreoMoto) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equals(placa)) {
+                return true;
+            }
+        }
+
+        for (Vaga vaga : terreoCaminhonete) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equals(placa)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
+    String entra(Vaga vaga) throws EstacionamentoCheioException {
 
         switch (vaga.getTipoVeiculo()){
 
@@ -58,13 +97,14 @@ class Estacionamento {
                             terreoCaminhonete.set(i,vaga);
                             qtdCaminhonetes++;
                             break;
-                        }else if(terreoCaminhonete.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                        }else if(placaCadastrada(vaga.getVeiculo().getPlaca())){
                             return null;
                         }
                     }
                     return vaga.getVagaID();
+                }else{
+                    throw new EstacionamentoCheioException();
                 }
-                break;
             case Automovel.CARRO:
                 if(qtdPiso1<MAX_CARROS_PISO_1) {
                     for(int i =0 ;i<piso1.size();i++){
@@ -75,7 +115,7 @@ class Estacionamento {
                             piso1.set(i,vaga);
                             qtdPiso1++;
                             break;
-                        }else if(piso1.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                        }else if(placaCadastrada(vaga.getVeiculo().getPlaca())){
                             return null;
                         }
                     }
@@ -89,13 +129,15 @@ class Estacionamento {
                             terreoCarro.set(i,vaga);
                             qtdTerreoCarros++;
                             break;
-                        }else if(terreoCarro.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                        }else if(placaCadastrada(vaga.getVeiculo().getPlaca())){
                             return null;
                         }
                     }
                     return vaga.getVagaID();
                 }
-                break;
+                else{
+                    throw new EstacionamentoCheioException();
+                }
             case Automovel.MOTO:
                 if(qtdMotos< MAX_MOTOS) {
                     for(int i =0 ;i<terreoMoto.size();i++){
@@ -106,13 +148,15 @@ class Estacionamento {
                             terreoMoto.set(i,vaga);
                             qtdMotos++;
                             break;
-                        }else if(terreoMoto.get(i).getVeiculo().getPlaca().equals(vaga.getVeiculo().getPlaca())){
+                        }else if(placaCadastrada(vaga.getVeiculo().getPlaca())){
                             return null;
                         }
                     }
                     return vaga.getVagaID();
                 }
-                break;
+                else{
+                    throw new EstacionamentoCheioException();
+                }
         }
 
         return null;
@@ -178,6 +222,11 @@ class Estacionamento {
     ArrayList<Vaga> getTerreoCarro(){return terreoCarro;}
     ArrayList<Vaga> getTerreoMoto(){return terreoMoto;}
     ArrayList<Vaga> getTerreoCaminhonete(){return terreoCaminhonete;}
+
+    int sizeP1(){return qtdPiso1;}
+    int sizeTCarros(){return qtdTerreoCarros;}
+    int sizeTMoto(){return qtdMotos;}
+    int sizeTCaminhonete(){return qtdCaminhonetes;}
 
 
 }

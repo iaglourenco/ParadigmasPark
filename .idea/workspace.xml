@@ -3,10 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="7c2c5834-1b09-4a31-a55a-d1111468d8f7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$ContabileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$ContabileHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$EntradaHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$EntradaHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SaidaHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SaidaHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" afterDir="false" />
     </list>
     <list id="53e0bd8d-6b0c-4062-a2da-3b719a26351b" name="Comecei a mexer agora" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,48 +28,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="378" column="34" selection-start-line="378" selection-start-column="34" selection-end-line="378" selection-end-column="34" />
+            <state relative-caret-position="410">
+              <caret line="566" column="56" selection-start-line="566" selection-start-column="56" selection-end-line="566" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3180#3230#0" />
-                <element signature="e#3260#3304#0" />
-                <element signature="e#3303#5941#0" />
-                <element signature="e#5947#6598#0" />
-                <element signature="e#6604#7627#0" />
-                <element signature="e#7633#8369#0" />
-                <element signature="e#8375#9122#0" />
-                <element signature="e#9128#9701#0" />
-                <element signature="e#9707#10577#0" />
-                <element signature="e#10584#10756#0" />
-                <element signature="e#10764#12048#0" />
-                <element signature="e#12054#13840#0" />
-                <element signature="e#15854#17456#0" />
-                <element signature="e#17462#17718#0" />
+                <element signature="e#3762#4248#0" />
+                <element signature="e#4254#7016#0" />
+                <element signature="e#7022#11772#0" />
+                <element signature="e#11778#12802#0" />
+                <element signature="e#12808#13569#0" />
+                <element signature="e#13575#14288#0" />
+                <element signature="e#14294#14867#0" />
+                <element signature="e#14873#15743#0" />
+                <element signature="e#15750#15922#0" />
+                <element signature="e#15930#17603#0" />
+                <element signature="e#17609#19395#0" />
+                <element signature="e#19374#23777#0" />
+                <element signature="e#23754#29200#0" />
+                <element signature="e#29206#29462#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="370">
+              <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#setup#0;class#Sistema#0" />
+                <element signature="method#registraEntrada#0;class#Sistema#0" />
+                <element signature="method#updateVagasFile#0;class#Sistema#0" />
+                <element signature="method#getInstance#0;class#Sistema#0" />
+                <element signature="method#contabilize#0;class#Sistema#0" />
+                <element signature="e#8241#8281#1" />
+                <element signature="e#8251#8252#0" expanded="true" />
+                <element signature="e#8337#8394#1" />
+                <element signature="e#8364#8365#0" expanded="true" />
+                <element signature="e#8423#8457#1" />
+                <element signature="e#8427#8428#0" expanded="true" />
+                <element signature="method#setPrecoCarro#0;class#Sistema#0" />
+                <element signature="e#8576#8609#1" />
+                <element signature="e#8579#8580#0" expanded="true" />
+                <element signature="method#setPrecoMoto#0;class#Sistema#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
+        <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+            <state relative-caret-position="155">
+              <caret line="85" column="64" selection-start-line="85" selection-start-column="64" selection-end-line="85" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#setup#0;class#Sistema#0" />
-                <element signature="method#registraEntrada#0;class#Sistema#0" />
-                <element signature="method#registraSaida#0;class#Sistema#0" />
-                <element signature="method#updateVagas#0;class#Sistema#0" />
-                <element signature="method#getInstance#0;class#Sistema#0" />
-                <element signature="e#7502#7503#0" expanded="true" />
-                <element signature="e#7615#7616#0" expanded="true" />
-                <element signature="e#7678#7679#0" expanded="true" />
-                <element signature="e#7830#7831#0" expanded="true" />
+                <element signature="method#Estacionamento#0;class#Estacionamento#0" />
+                <element signature="method#placaCadastrada#0;class#Estacionamento#0" />
+                <element signature="method#entra#0;class#Estacionamento#0" />
+                <element signature="method#sai#0;class#Estacionamento#0" />
+                <element signature="method#getInstance#0;class#Estacionamento#0" />
               </folding>
             </state>
           </provider>
@@ -73,6 +106,17 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>cate</find>
+      <find>catego</find>
+      <find>Ã§</find>
+      <find>hora</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>ç</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -124,12 +168,12 @@
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Automovel.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/ReadFileException.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/exceptions/PlacaInexistenteException.java" />
-        <option value="$PROJECT_DIR$/history.csv" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" />
         <option value="$PROJECT_DIR$/vagas.csv" />
+        <option value="$PROJECT_DIR$/history.csv" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" />
-        <option value="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" />
         <option value="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" />
+        <option value="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" />
       </list>
     </option>
   </component>
@@ -224,19 +268,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="iaglourenco" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ParadigmasPark" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ParadigmasPark" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="iaglourenco" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -311,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543523625835</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Backend concluido (eu acho)&#10;&#10;falta fazer uns testes&#10;&#10;Nao consigo pegar o valor do JComboBox&#10;&#10;So falta a interface">
+      <created>1543547116349</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1543547116349</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -327,7 +371,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.28971255" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.30257186" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -342,9 +386,9 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295082" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3295082" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -441,7 +485,8 @@
     <MESSAGE value="Merge from master" />
     <MESSAGE value="Ja esta salvando os precos&#10;&#10;fiz as funcoes de entrada e saida do estacionamento, &#10;ta meio feio mas acho que funciona" />
     <MESSAGE value="Parte do backend quase concluida&#10;&#10;mexi em todas as classes&#10;&#10;so falta salvar um arquivo que usa para carregar o sistema mesmo depois de fechado&#10;&#10;entrada e saida funcionando" />
-    <option name="LAST_COMMIT_MESSAGE" value="Parte do backend quase concluida&#10;&#10;mexi em todas as classes&#10;&#10;so falta salvar um arquivo que usa para carregar o sistema mesmo depois de fechado&#10;&#10;entrada e saida funcionando" />
+    <MESSAGE value="Backend concluido (eu acho)&#10;&#10;falta fazer uns testes&#10;&#10;Nao consigo pegar o valor do JComboBox&#10;&#10;So falta a interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backend concluido (eu acho)&#10;&#10;falta fazer uns testes&#10;&#10;Nao consigo pegar o valor do JComboBox&#10;&#10;So falta a interface" />
   </component>
   <component name="WindowStateProjectService">
     <state width="192" height="246" key="Git.Branch.Popup" />
@@ -516,9 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/history.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Automovel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -543,18 +585,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/history.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/vagas.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
+        <state relative-caret-position="155">
+          <caret line="85" column="64" selection-start-line="85" selection-start-column="64" selection-end-line="85" selection-end-column="64" />
           <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Estacionamento#0;class#Estacionamento#0" />
+            <element signature="method#placaCadastrada#0;class#Estacionamento#0" />
             <element signature="method#entra#0;class#Estacionamento#0" />
             <element signature="method#sai#0;class#Estacionamento#0" />
             <element signature="method#getInstance#0;class#Estacionamento#0" />
@@ -562,45 +609,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+        <state relative-caret-position="410">
+          <caret line="566" column="56" selection-start-line="566" selection-start-column="56" selection-end-line="566" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setup#0;class#Sistema#0" />
-            <element signature="method#registraEntrada#0;class#Sistema#0" />
-            <element signature="method#registraSaida#0;class#Sistema#0" />
-            <element signature="method#updateVagas#0;class#Sistema#0" />
-            <element signature="method#getInstance#0;class#Sistema#0" />
-            <element signature="e#7502#7503#0" expanded="true" />
-            <element signature="e#7615#7616#0" expanded="true" />
-            <element signature="e#7678#7679#0" expanded="true" />
-            <element signature="e#7830#7831#0" expanded="true" />
+            <element signature="e#3762#4248#0" />
+            <element signature="e#4254#7016#0" />
+            <element signature="e#7022#11772#0" />
+            <element signature="e#11778#12802#0" />
+            <element signature="e#12808#13569#0" />
+            <element signature="e#13575#14288#0" />
+            <element signature="e#14294#14867#0" />
+            <element signature="e#14873#15743#0" />
+            <element signature="e#15750#15922#0" />
+            <element signature="e#15930#17603#0" />
+            <element signature="e#17609#19395#0" />
+            <element signature="e#19374#23777#0" />
+            <element signature="e#23754#29200#0" />
+            <element signature="e#29206#29462#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="378" column="34" selection-start-line="378" selection-start-column="34" selection-end-line="378" selection-end-column="34" />
+        <state relative-caret-position="370">
+          <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3180#3230#0" />
-            <element signature="e#3260#3304#0" />
-            <element signature="e#3303#5941#0" />
-            <element signature="e#5947#6598#0" />
-            <element signature="e#6604#7627#0" />
-            <element signature="e#7633#8369#0" />
-            <element signature="e#8375#9122#0" />
-            <element signature="e#9128#9701#0" />
-            <element signature="e#9707#10577#0" />
-            <element signature="e#10584#10756#0" />
-            <element signature="e#10764#12048#0" />
-            <element signature="e#12054#13840#0" />
-            <element signature="e#15854#17456#0" />
-            <element signature="e#17462#17718#0" />
+            <element signature="method#setup#0;class#Sistema#0" />
+            <element signature="method#registraEntrada#0;class#Sistema#0" />
+            <element signature="method#updateVagasFile#0;class#Sistema#0" />
+            <element signature="method#getInstance#0;class#Sistema#0" />
+            <element signature="method#contabilize#0;class#Sistema#0" />
+            <element signature="e#8241#8281#1" />
+            <element signature="e#8251#8252#0" expanded="true" />
+            <element signature="e#8337#8394#1" />
+            <element signature="e#8364#8365#0" expanded="true" />
+            <element signature="e#8423#8457#1" />
+            <element signature="e#8427#8428#0" expanded="true" />
+            <element signature="method#setPrecoCarro#0;class#Sistema#0" />
+            <element signature="e#8576#8609#1" />
+            <element signature="e#8579#8580#0" expanded="true" />
+            <element signature="method#setPrecoMoto#0;class#Sistema#0" />
           </folding>
         </state>
       </provider>

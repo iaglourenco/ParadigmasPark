@@ -1,9 +1,6 @@
 package com.iaglourenco;
 
-import com.iaglourenco.exceptions.PlacaInexistenteException;
-import com.iaglourenco.exceptions.ReadFileException;
-import com.iaglourenco.exceptions.VagaOcupadaException;
-import com.iaglourenco.exceptions.WriteFileException;
+import com.iaglourenco.exceptions.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -46,7 +43,6 @@ class Sistema {
     *
     */
 
-
     void setup(){
 
         try{
@@ -72,32 +68,40 @@ class Sistema {
 
     }
 
+    String registraEntrada(Automovel veiculo,String time) throws WriteFileException, VagaOcupadaException, EstacionamentoCheioException {
 
-    void registraEntrada(Automovel veiculo,String hora) throws WriteFileException, VagaOcupadaException {
 
-        String vagaOcupada =estacionamento.entra(new Vaga(veiculo,hora));
+        String[] data = time.split("&");
+
+        String vagaOcupada = estacionamento.entra(new Vaga(veiculo, data[1]));
         if(vagaOcupada == null){
             throw new VagaOcupadaException();
         }
-        String day = new SimpleDateFormat("dd/MM/yy").format(new Date(System.currentTimeMillis()));
 
-        String info = day+","+ hora+ "," +veiculo.getPlaca()+","+ vagaOcupada+","+0+'\n';
-
-
+        String info = data[0]+","+ data[1]+ "," +veiculo.getPlaca()+","+ vagaOcupada+","+0+'\n';
         try {
             writer = new BufferedWriter(new FileWriter(csvHistorico,true));
             writer.append(info);
             writer.flush();
             updateVagasFile();
-        }catch (IOException e){
+            return vagaOcupada;
+
+        }catch (IOException e) {
             throw new WriteFileException();
         }
 
     }
 
-    double registraSaida(Automovel veiculo,String hora) throws WriteFileException,ReadFileException,PlacaInexistenteException{
+    String registraSaida(Automovel veiculo,String time) throws WriteFileException,ReadFileException,PlacaInexistenteException{
+
+
+        String[] data = time.split("&");
+
+        String hora = data[1];
+        String dia = data[0];
 
         double pagamento;
+        String id;
         try{
                    reader = new BufferedReader(new FileReader(csvHistorico));
 
@@ -110,6 +114,9 @@ class Sistema {
                    double entrada = Double.parseDouble(hEntr[0]) + (Double.parseDouble(hEntr[1]) / 100);
                    String[] hSai = hora.split(":");
                    double saida = Double.parseDouble(hSai[0]) + (Double.parseDouble(hSai[1])/100);
+
+
+
                    pagamento = Math.abs(entrada-saida);
                    switch (veiculo.getTipo()) {
                 case Automovel.CAMINHONETE:
@@ -124,8 +131,9 @@ class Sistema {
             }
 
             try {
+                id = estacionamento.sai(veiculo);
                 String day = new SimpleDateFormat("dd/MM/yy").format(new Date(System.currentTimeMillis()));
-                String info = day +","+ hora +","+ veiculo.getPlaca() +","+ estacionamento.sai(veiculo)+","+pagamento+'\n';
+                String info = day +","+ hora +","+ veiculo.getPlaca() +","+ id+","+pagamento+'\n';
                 writer = new BufferedWriter(new FileWriter(csvHistorico,true));
                 writer.append(info);
                 writer.flush();
@@ -141,9 +149,10 @@ class Sistema {
             throw new PlacaInexistenteException();
         }
 
-        return pagamento;
-    }
 
+        return pagamento + ";" + id;
+
+    }
 
     void updateVagasFile() throws WriteFileException {
 
@@ -243,6 +252,35 @@ class Sistema {
         return system;
     }
 
+    String contabilize(String range) throws ReadFileException {
+
+        String[] datas = range.split(";");
+        String inicio = datas[0];
+        String fim = datas[1];
+
+
+        double lucro;
+        int saidas;
+
+        try{
+            reader = new BufferedReader(new FileReader(csvHistorico));
+
+
+
+        }catch (IOException e ){
+            throw new ReadFileException();
+        }
+
+        return null;
+    }
+
+    int sizePiso1(){return estacionamento.sizeP1();}
+
+    int sizeTerreoCarros(){return estacionamento.sizeTCarros();}
+
+    int sizeTerreoCaminhonetes(){return estacionamento.sizeTCaminhonete();}
+
+    int sizeTerreoMotos(){return estacionamento.sizeTMoto();}
 
     double getPrecoCaminhonete() {
         return precoCaminhonete;
