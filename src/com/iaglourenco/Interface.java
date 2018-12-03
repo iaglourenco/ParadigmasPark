@@ -1,6 +1,8 @@
 package com.iaglourenco;
 
 import com.iaglourenco.exceptions.*;
+import com.sun.javafx.css.converters.StringConverter;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +42,8 @@ class Interface  {
     private JPanel caminhoneteStatus = new JPanel(new FlowLayout());
     private JPanel motoStatus = new JPanel(new FlowLayout());
     
-    private JButton buttonEstacCarro[] = new JButton[160];
+    private JButton buttonEstacCarroT[] = new JButton[60];
+    private JButton buttonEstacCarroP[] = new JButton[100];
     private JButton buttonEstacCaminhonete[] = new JButton[20];
     private JButton buttonEstacMoto[] = new JButton[20];
     
@@ -52,7 +55,9 @@ class Interface  {
     private JButton buttonClearSetup = new JButton("Limpar");
 
     private final String[] names = {"Selecione...","Carro","Caminhonete","Motocicleta"};
-    private JComboBox<String> categoria = new JComboBox<>(names); //Para painel Entrada e Saida
+    private JComboBox<String> categoriaEntrada = new JComboBox<>(names); //Para painel Entrada e Saida
+    private JComboBox<String> categoriaSaida = new JComboBox<>(names); //Para painel Entrada e Saida
+
 
     private JPanel panelSaida = new JPanel(new GridLayout(7,0,10,10));
     private JTextField placaSaida = new JTextField();
@@ -150,15 +155,6 @@ class Interface  {
             }
         });
 
-        categoria.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-
-                System.out.println(e.getItem().toString());
-            }
-        });
-
-
         buttonOKEntrada.addActionListener(new EntradaHandler());
         buttonBackEntrada.addActionListener(new EntradaHandler());
         
@@ -214,21 +210,32 @@ class Interface  {
         moto.setImage(moto.getImage().getScaledInstance(40, 40, 100));
         
         carroStatus.setPreferredSize(new Dimension(300, 100));
-        for(int i = 0; i < 160; i++) {
-        	buttonEstacCarro[i] = new JButton();
-        	
-        	buttonEstacCarro[i].setPreferredSize(new Dimension(50, 45));
-            buttonEstacCarro[i].setBackground(Color.green);
+        for(int i = 0; i < 60; i++) {
+        	buttonEstacCarroT[i] = new JButton();
+        	buttonEstacCarroT[i].setName(Integer.toString(i+101));
+        	buttonEstacCarroT[i].setPreferredSize(new Dimension(50, 45));
+            buttonEstacCarroT[i].setBackground(Color.green);
             //buttonEstacCarro[i].setText(" "+i);
-            buttonEstacCarro[i].setIcon(carro);
-            buttonEstacCarro[i].setVisible(true);
-            carroStatus.add(buttonEstacCarro[i]);
+            buttonEstacCarroT[i].setIcon(carro);
+            buttonEstacCarroT[i].setVisible(true);
+            carroStatus.add(buttonEstacCarroT[i]);
+        }
+        
+        for(int i = 0; i < 100; i++) {
+        	buttonEstacCarroP[i] = new JButton();
+        	buttonEstacCarroP[i].setName(Integer.toString(i+1));
+        	buttonEstacCarroP[i].setPreferredSize(new Dimension(50, 45));
+            buttonEstacCarroP[i].setBackground(Color.green);
+            //buttonEstacCarro[i].setText(" "+i);
+            buttonEstacCarroP[i].setIcon(carro);
+            buttonEstacCarroP[i].setVisible(true);
+            carroStatus.add(buttonEstacCarroP[i]);
         }
         
         caminhoneteStatus.setPreferredSize(new Dimension(150, 100));
         for(int i = 0; i < 20; i++) {
         	buttonEstacCaminhonete[i] = new JButton();
-        	
+        	buttonEstacCaminhonete[i].setName(Integer.toString(i+181));
         	buttonEstacCaminhonete[i].setPreferredSize(new Dimension(50, 50));
             buttonEstacCaminhonete[i].setBackground(Color.green);
             //buttonEstacCaminhonete[i].setText(" "+i);
@@ -240,7 +247,7 @@ class Interface  {
         motoStatus.setPreferredSize(new Dimension(150, 100));
         for(int i = 0; i < 20; i++) {
         	buttonEstacMoto[i] = new JButton();
-        	
+        	buttonEstacMoto[i].setName(Integer.toString(i+161));
         	buttonEstacMoto[i].setPreferredSize(new Dimension(50, 50));
             buttonEstacMoto[i].setBackground(Color.green);
             //buttonEstacMoto[i].setText(" "+i);
@@ -300,9 +307,8 @@ class Interface  {
         panelEntrada.add(placaEntrada);
         panelEntrada.add(new JLabel("Horario de Entrada"));
         panelEntrada.add(horaEntrada);
-        categoria = new JComboBox<>(names);
-        categoria.setMaximumRowCount(names.length);
-        panelEntrada.add(categoria);
+        categoriaEntrada.setMaximumRowCount(names.length);
+        panelEntrada.add(categoriaEntrada);
         panelEntrada.add(buttonOKEntrada);
         panelEntrada.add(buttonBackEntrada);
 
@@ -322,9 +328,8 @@ class Interface  {
         panelSaida.add(placaSaida);
         panelSaida.add(new JLabel("Horario de Saida"));
         panelSaida.add(horaSaida);
-        categoria = new JComboBox<>(names);
-        categoria.setMaximumRowCount(names.length);
-        panelSaida.add(categoria);
+        categoriaSaida.setMaximumRowCount(names.length);
+        panelSaida.add(categoriaSaida);
         panelSaida.add(buttonOKSaida);
         panelSaida.add(buttonBackSaida);
 
@@ -470,20 +475,65 @@ class Interface  {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == buttonOKEntrada) {
-
+            	
+            	int IDRetorno;
+            	
                 try {
                     if(placaEntrada.getText().isEmpty() || horaEntrada.getText().isEmpty()){
                         throw new ValorInvalidoException();
                     }
-                    switch (Objects.requireNonNull(categoria.getSelectedItem()).toString()) {
-                        case "Carro":
-                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), horaEntrada.getText());
+                    switch (Objects.requireNonNull(categoriaEntrada.getSelectedItem()).toString()) {
+                        
+                    case "Carro":
+                        	IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), horaEntrada.getText()));
+                        	
+                            
+                            if(IDRetorno >= 1 || IDRetorno <= 100) {
+                            	
+                            	for(int i = 0; i < 100; i++) {
+                                	
+                            		if(buttonEstacCarroP[i].getName().equals(Integer.toString(IDRetorno))) {
+                                		buttonEstacCarroP[i].setBackground(Color.red);
+                                	}
+                                    
+                                    
+                                }
+                            }
+                            
                             break;
-                        case "Caminhonete":
-                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CAMINHONETE), horaEntrada.getText());
-                            break;
-                        case "Moto":
-                            sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.MOTO), horaEntrada.getText());
+                        
+                    case "Caminhonete":
+                        	IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CAMINHONETE), horaEntrada.getText()));
+                            
+                        	if(IDRetorno >= 181 || IDRetorno <= 200) {
+                            	
+                            	for(int i = 0; i < 20; i++) {
+                                	
+                            		if(buttonEstacCaminhonete[i].getName().equals(Integer.toString(IDRetorno))) {
+                            			buttonEstacCaminhonete[i].setBackground(Color.red);
+                                	}
+                                    
+                                    
+                                }
+                            }
+                        	
+                        	break;
+                        
+                    case "Motocicleta":
+                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.MOTO), horaEntrada.getText()));
+                            
+                            if(IDRetorno >= 161 || IDRetorno <= 180) {
+                            	
+                            	for(int i = 0; i < 20; i++) {
+                                	
+                            		if(buttonEstacMoto[i].getName().equals(Integer.toString(IDRetorno))) {
+                            			buttonEstacMoto[i].setBackground(Color.red);
+                                	}
+                                    
+                                    
+                                }
+                            }
+                            
                             break;
                         default:
                             JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE VEICULO", "ERRO", JOptionPane.WARNING_MESSAGE);
