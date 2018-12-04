@@ -7,6 +7,10 @@ class Automovel {
     private final String placa;
     private final int tipo;
 
+    Automovel(String placa){
+        this.placa =placa;
+        tipo=-1;
+    }
     Automovel(String placa, int tipo){
        this.placa=placa;
        this.tipo=tipo;

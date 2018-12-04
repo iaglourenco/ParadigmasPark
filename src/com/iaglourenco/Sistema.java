@@ -4,8 +4,6 @@ import com.iaglourenco.exceptions.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Date;
 
 class Sistema {
@@ -76,18 +74,18 @@ class Sistema {
 
         String[] data = time.split("&");
 
-        String vagaOcupada = estacionamento.entra(new Vaga(veiculo, data[1]));
-        if(vagaOcupada == null){
+        String vagaOcupadaID = estacionamento.entra(new Vaga(veiculo, data[1]));
+        if(vagaOcupadaID == null){
             throw new VagaOcupadaException();
         }
 
-        String info = data[0]+","+ data[1]+ "," +veiculo.getPlaca()+","+ vagaOcupada+","+0+'\n';
+        String info = data[0]+","+ data[1]+ "," +veiculo.getPlaca()+","+ vagaOcupadaID+","+0+","+veiculo.getTipo()+'\n';
         try {
             writer = new BufferedWriter(new FileWriter(csvHistorico,true));
             writer.append(info);
             writer.flush();
             updateVagasFile();
-            return vagaOcupada;
+            return vagaOcupadaID;
 
         }catch (IOException e) {
             throw new WriteFileException();
@@ -98,34 +96,35 @@ class Sistema {
     String registraSaida(Automovel veiculo,String time) throws WriteFileException,ReadFileException,PlacaInexistenteException{
 
         String[] data = time.split("&");
-
+        String[] file;
         double pagamento;
         String id;
+
         try{
-                   reader = new BufferedReader(new FileReader(csvHistorico));
+            reader = new BufferedReader(new FileReader(csvHistorico));
 
-                   String[] file = reader.readLine().split(",");
+            file = reader.readLine().split(",");
 
-                   while(!file[2].equals(veiculo.getPlaca())){
-                       file = reader.readLine().split(",");
-                   }
-                    Date dEntra;
-                    Date dSai;
-                    long difHoras=0;
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            while(!file[2].equals(veiculo.getPlaca())){
+                file = reader.readLine().split(",");
+            }
+            Date dEntra;
+            Date dSai;
+            long difHoras=0;
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                    try{
-                        dEntra = format.parse(file[0]+" "+file[1]);
-                        dSai = format.parse(data[0]+" "+data[1]);
-                        long dif = dSai.getTime() - dEntra.getTime();
-                        difHoras = dif / (60 * 60 * 1000);
+            try{
+                dEntra = format.parse(file[0]+" "+file[1]);
+                dSai = format.parse(data[0]+" "+data[1]);
+                long dif = dSai.getTime() - dEntra.getTime();
+                difHoras = dif / (60 * 60 * 1000);
 
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-                   pagamento = Math.abs(difHoras);
-                   switch (veiculo.getTipo()) {
+            pagamento = Math.abs(difHoras);
+            switch (Integer.parseInt(file[5])) {
                 case Automovel.CAMINHONETE:
                     pagamento *= precoCaminhonete;
                     break;
@@ -157,7 +156,7 @@ class Sistema {
         }
 
 
-        return pagamento + ";" + id;
+        return pagamento + ";" + id+";"+file[5];
 
     }
 
@@ -259,7 +258,7 @@ class Sistema {
         return system;
     }
 
-    String contabilize(String range) throws ReadFileException {
+    String contabile(String range) throws ReadFileException {
 
         String[] datas = range.split(";");
         String inicio = datas[0];
