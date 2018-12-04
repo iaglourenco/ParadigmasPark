@@ -1,7 +1,7 @@
 package com.iaglourenco;
 
 
-public class Programa {
+class Programa {
 
     public static void main(String[] args){
         //instancia a interface

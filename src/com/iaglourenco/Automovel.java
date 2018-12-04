@@ -1,13 +1,13 @@
 package com.iaglourenco;
 
-public class Automovel {
+class Automovel {
     static final int CAMINHONETE=0,CARRO=1,MOTO=2;
 
 
-    private String placa;
-    private int tipo;
+    private final String placa;
+    private final int tipo;
 
-    public Automovel(String placa,int tipo){
+    Automovel(String placa, int tipo){
        this.placa=placa;
        this.tipo=tipo;
     }

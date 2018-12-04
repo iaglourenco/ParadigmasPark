@@ -3,8 +3,12 @@ package com.iaglourenco;
 import com.iaglourenco.exceptions.*;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -13,75 +17,81 @@ class Interface  {
 
     private static Interface instance;
 
-    private Sistema sistema = Sistema.getInstance();
-    private JFrame saidaVeiculos = new JFrame();
-    private JFrame entradaVeiculos = new JFrame();
-    private JFrame setupEstacionamento = new JFrame();
-    private JFrame contabilidade = new JFrame();
-    private JFrame status = new JFrame();
-    private JFrame pagamento = new JFrame();
-    private Dimension frameDimension = new Dimension(1000,720);//TODO ajustar resolução
-    private Dimension popupDimension = new Dimension(300,260);
+    private final Sistema sistema = Sistema.getInstance();
+    private final JFrame saidaVeiculos = new JFrame();
+    private final JFrame entradaVeiculos = new JFrame();
+    private final JFrame setupEstacionamento = new JFrame();
+    private final JFrame contabilidade = new JFrame();
+    private final JFrame status = new JFrame();
+    private final JFrame pagamento = new JFrame();
+    private final Dimension frameDimension = new Dimension(1000,720);//TODO ajustar resolução
+    private final Dimension popupDimension = new Dimension(300,260);
 
-    private JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
-    private JButton buttonSaida=new JButton("Registrar saida");//registrar saida
-    private JButton buttonContabilidade = new JButton("Contabilidade");
-    private JButton buttonSetup = new JButton("Configurar preços");
-    private JButton buttonExit=new JButton("Sair");//sair do programa
-    private JButton buttonTerreo =new JButton("Terreo");//visualizar piso terreo
-    private JButton buttonPriPiso =new JButton("1° Piso");//visualizar primeiro piso
-    private JTextArea infoCarro = new JTextArea();
-    private JTextArea infoMoto = new JTextArea();
-    private JTextArea infoCaminhonete = new JTextArea();
-    private JPanel panel1Status = new JPanel(new FlowLayout());
-    private JPanel panel2Status = new JPanel(new FlowLayout());
+    private final JButton buttonEntrada=new JButton("Registrar entrada");//registrar entrada
+    private final JButton buttonSaida=new JButton("Registrar saida");//registrar saida
+    private final JButton buttonContabilidade = new JButton("Contabilidade");
+    private final JButton buttonSetup = new JButton("Configurar preços");
+    private final JButton buttonExit=new JButton("Sair");//sair do programa
+    private final JButton buttonTerreo =new JButton("Terreo");//visualizar piso terreo
+    private final JButton buttonPriPiso =new JButton("1° Piso");//visualizar primeiro piso
+    private final JTextArea infoCarro = new JTextArea();
+    private final JTextArea infoMoto = new JTextArea();
+    private final JTextArea infoCaminhonete = new JTextArea();
+    private final JPanel panel1Status = new JPanel(new FlowLayout());
+    private final JPanel panel2Status = new JPanel(new FlowLayout());
 
-    private JPanel carroStatus = new JPanel(new FlowLayout());
-    private JPanel caminhoneteStatus = new JPanel(new FlowLayout());
-    private JPanel motoStatus = new JPanel(new FlowLayout());
+    private final JPanel carroStatus = new JPanel(new FlowLayout());
+    private final JPanel carroStatusTerreo = new JPanel(new FlowLayout());
+    private final JPanel caminhoneteStatus = new JPanel(new FlowLayout());
+    private final JPanel motoStatus = new JPanel(new FlowLayout());
+    private final CardLayout cardLayout = new CardLayout();
+    private final JPanel terreo =new JPanel(new BorderLayout());
+    private final JPanel piso1 =new JPanel(new BorderLayout());
+    private final JPanel root =new JPanel(cardLayout);
 
-    private JButton[] buttonEstacCarroT = new JButton[60];
-    private JButton[] buttonEstacCarroP = new JButton[100];
-    private JButton[] buttonEstacCaminhonete = new JButton[20];
-    private JButton[] buttonEstacMoto = new JButton[20];
 
-    private JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));
-    private JTextField precoCaminhonete = new JTextField();
-    private JTextField precoCarro = new JTextField();
-    private JTextField precoMotocicleta = new JTextField();
-    private JButton buttonOKSetup = new JButton("OK");
-    private JButton buttonClearSetup = new JButton("Limpar");
+    private final JButton[] buttonEstacCarroT = new JButton[60];
+    private final JButton[] buttonEstacCarroP = new JButton[100];
+    private final JButton[] buttonEstacCaminhonete = new JButton[20];
+    private final JButton[] buttonEstacMoto = new JButton[20];
+
+    private final JPanel panel1Setup = new JPanel(new GridLayout(4,0,10,10));
+    private final JTextField precoCaminhonete = new JTextField();
+    private final JTextField precoCarro = new JTextField();
+    private final JTextField precoMotocicleta = new JTextField();
+    private final JButton buttonOKSetup = new JButton("OK");
+    private final JButton buttonClearSetup = new JButton("Limpar");
 
     private final String[] names = {"Selecione...","Carro","Caminhonete","Motocicleta"};
-    private JComboBox<String> categoriaEntrada = new JComboBox<>(names); //Para painel Entrada
-    private JComboBox<String> categoriaSaida = new JComboBox<>(names); //Para painel Saida
+    private final JComboBox<String> categoriaEntrada = new JComboBox<>(names); //Para painel Entrada
+    private final JComboBox<String> categoriaSaida = new JComboBox<>(names); //Para painel Saida
 
 
-    private JPanel panelSaida = new JPanel(new GridLayout(9,0,10,10));
-    private JTextField placaSaida = new JTextField();
-    private JTextField horaSaida = new JTextField();
-    private JTextField diaSaida = new JTextField();
-    private JButton buttonOKSaida = new JButton("OK");
-    private JButton buttonBackSaida = new JButton("Voltar");
+    private final JPanel panelSaida = new JPanel(new GridLayout(9,0,10,10));
+    private final JTextField placaSaida = new JTextField();
+    private final JTextField horaSaida = new JTextField();
+    private final JTextField diaSaida = new JTextField();
+    private final JButton buttonOKSaida = new JButton("OK");
+    private final JButton buttonBackSaida = new JButton("Voltar");
 
 
-    private JPanel panelEntrada = new JPanel(new GridLayout(9,0,10,10));
-    private JTextField placaEntrada = new JTextField();
-    private JTextField horaEntrada = new JTextField();
-    private JTextField diaEntrada = new JTextField();
-    private JButton buttonOKEntrada = new JButton("OK");
-    private JButton buttonBackEntrada = new JButton("Voltar");
+    private final JPanel panelEntrada = new JPanel(new GridLayout(9,0,10,10));
+    private final JTextField placaEntrada = new JTextField();
+    private final JTextField horaEntrada = new JTextField();
+    private final JTextField diaEntrada = new JTextField();
+    private final JButton buttonOKEntrada = new JButton("OK");
+    private final JButton buttonBackEntrada = new JButton("Voltar");
 
 
-    private JPanel panelContabilidade = new JPanel(new FlowLayout());
-    private JTextArea contabArea = new JTextArea();
-    private JButton buttonOKContabilidade = new JButton("OK");
+    private final JPanel panelContabilidade = new JPanel(new FlowLayout());
+    private final JTextArea contabArea = new JTextArea();
+    private final JButton buttonOKContabilidade = new JButton("OK");
 
-    private JPanel panelPagamento = new JPanel();
-    private JTextArea infoPlaca = new JTextArea();
-    private JTextArea infoPreco = new JTextArea();
-    private JTextArea infoTipo = new JTextArea();
-    private JButton buttonOKPagamento = new JButton("OK");
+    private final JPanel panelPagamento = new JPanel();
+    private final JTextArea infoPlaca = new JTextArea();
+    private final JTextArea infoPreco = new JTextArea();
+    private final JTextArea infoTipo = new JTextArea();
+    private final JButton buttonOKPagamento = new JButton("OK");
 
 
 
@@ -167,7 +177,9 @@ class Interface  {
 
     private void initialize(){
         //LAYOUT PRINCIPAL
-        status.setLayout(new BorderLayout());
+        status.add(panel1Status,BorderLayout.SOUTH);
+        status.add(panel2Status,BorderLayout.NORTH);
+        status.add(root);
         status.setSize(frameDimension);
         status.setResizable(false);
         status.setLocationRelativeTo(null);
@@ -175,9 +187,12 @@ class Interface  {
 
         //STATUS TERREO
         panel2Status.add(buttonTerreo);
+        buttonTerreo.addActionListener(e -> cardLayout.show(root,"terreo"));
+        carroStatusTerreo.setPreferredSize(new Dimension(500,720));
 
         //STATUS 1°PISO
         panel2Status.add(buttonPriPiso);
+        buttonPriPiso.addActionListener(e -> cardLayout.show(root,"piso1"));
 
         //Visualização Geral
         panel2Status.add(new JLabel("                                              Carros "));
@@ -205,7 +220,6 @@ class Interface  {
         panel1Status.add(buttonSetup);
         panel1Status.add(buttonExit);
 
-        //TODO inicializar a visualizacao de vagas disponiveis
         ImageIcon carro = new ImageIcon(getClass().getResource("carro.png"));
         carro.setImage(carro.getImage().getScaledInstance(40, 40, 100));
         ImageIcon caminhonete = new ImageIcon(getClass().getResource("caminhonete.png"));
@@ -221,7 +235,7 @@ class Interface  {
             buttonEstacCarroT[i].setBackground(Color.green);
             buttonEstacCarroT[i].setIcon(carro);
             buttonEstacCarroT[i].setVisible(true);
-            carroStatus.add(buttonEstacCarroT[i]);
+            carroStatusTerreo.add(buttonEstacCarroT[i]);
         }
 
         for(int i = 0; i < 100; i++) {
@@ -229,7 +243,6 @@ class Interface  {
             buttonEstacCarroP[i].setName(Integer.toString(i+1));
             buttonEstacCarroP[i].setPreferredSize(new Dimension(50, 45));
             buttonEstacCarroP[i].setBackground(Color.green);
-            //buttonEstacCarro[i].setText(" "+i);
             buttonEstacCarroP[i].setIcon(carro);
             buttonEstacCarroP[i].setVisible(true);
             carroStatus.add(buttonEstacCarroP[i]);
@@ -241,7 +254,6 @@ class Interface  {
             buttonEstacCaminhonete[i].setName(Integer.toString(i+181));
             buttonEstacCaminhonete[i].setPreferredSize(new Dimension(50, 50));
             buttonEstacCaminhonete[i].setBackground(Color.green);
-            //buttonEstacCaminhonete[i].setText(" "+i);
             buttonEstacCaminhonete[i].setIcon(caminhonete);
             buttonEstacCaminhonete[i].setVisible(true);
             caminhoneteStatus.add(buttonEstacCaminhonete[i]);
@@ -253,20 +265,24 @@ class Interface  {
             buttonEstacMoto[i].setName(Integer.toString(i+161));
             buttonEstacMoto[i].setPreferredSize(new Dimension(50, 50));
             buttonEstacMoto[i].setBackground(Color.green);
-            //buttonEstacMoto[i].setText(" "+i);
             buttonEstacMoto[i].setIcon(moto);
             buttonEstacMoto[i].setVisible(true);
             motoStatus.add(buttonEstacMoto[i]);
         }
 
-        panel1Status.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3.0f)));
-        panel2Status.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3.0f)));
+        panel1Status.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED,Color.BLACK,Color.GRAY));
+        panel2Status.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED,Color.BLACK,Color.GRAY));
 
-        status.add(panel1Status,BorderLayout.SOUTH);
-        status.add(panel2Status,BorderLayout.NORTH);
-        status.add(carroStatus,BorderLayout.CENTER);
-        status.add(caminhoneteStatus,BorderLayout.LINE_START);
-        status.add(motoStatus,BorderLayout.LINE_END);
+        piso1.add(carroStatus,BorderLayout.CENTER);
+        terreo.add(carroStatusTerreo,BorderLayout.CENTER);
+        terreo.add(caminhoneteStatus,BorderLayout.EAST);
+        terreo.add(motoStatus,BorderLayout.WEST);
+
+        root.add("terreo",terreo);
+        root.add("piso1",piso1);
+
+        cardLayout.show(root,"terreo");
+
         status.setVisible(true);
     }
 
@@ -386,6 +402,7 @@ class Interface  {
     }
 
     //singleton
+    @SuppressWarnings("UnusedReturnValue")
     synchronized static Interface getInstance(){
 
         if(instance == null){
@@ -402,12 +419,12 @@ class Interface  {
             if(e.getSource() == buttonEntrada){
                 placaEntrada.setText("");
                 horaEntrada.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
-                diaEntrada.setText(new SimpleDateFormat("dd/MM/yy").format(new Date(System.currentTimeMillis())));
+                diaEntrada.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
                 entradaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonSaida){
                 placaSaida.setText("");
                 horaSaida.setText(new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis())));
-                diaSaida.setText(new SimpleDateFormat("dd/MM/yy").format(new Date(System.currentTimeMillis())));
+                diaSaida.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
                 saidaVeiculos.setVisible(true);
             }else if(e.getSource() == buttonContabilidade){
                 contabilidade.setVisible(true);
@@ -424,18 +441,7 @@ class Interface  {
 
                 }
 
-            } /*else if(e.getSource() == buttonTerreo) {
-            	motoStatus.setVisible(true);
-            	caminhoneteStatus.setVisible(true);
-            	carroStatus.setVisible(false);
-
-
-            } else if(e.getSource() == buttonPriPiso) {
-            	carroStatus.setVisible(true);
-            	motoStatus.setVisible(false);
-            	caminhoneteStatus.setVisible(false);
-
-            }*/
+            }
 
         }
     }
@@ -586,7 +592,7 @@ class Interface  {
                            ret = sistema.registraSaida(new Automovel(placaSaida.getText(),Automovel.CARRO),data);
                            s = ret.split(";");
                            infoTipo.setText("Carro");
-                           infoPreco.setText(s[0]);
+                           infoPreco.setText(String.format("%.2f",Double.parseDouble(s[0])));
                            infoPlaca.setText(placaSaida.getText());
                             IDRetorno = Integer.parseInt(s[1]);
                             if(IDRetorno >= 1 && IDRetorno <= 100) {
@@ -603,7 +609,7 @@ class Interface  {
                                     }
                                 }
                             }
-                            infoCarro.setText(Integer.toString(sistema.sizeTerreoMotos()));
+                            infoCarro.setText(Integer.toString(sistema.sizeTerreoCarros() + sistema.sizePiso1()));
                             saidaVeiculos.dispose();
                             pagamento.setVisible(true);
                             break;
@@ -613,17 +619,17 @@ class Interface  {
                             ret = sistema.registraSaida(new Automovel(placaSaida.getText(),Automovel.CAMINHONETE),data);
                             s = ret.split(";");
                             infoTipo.setText("Carro");
-                            infoPreco.setText(s[0]);
+                            infoPreco.setText(String.format("%.2f",Double.parseDouble(s[0])));
                             infoPlaca.setText(placaSaida.getText());
                             IDRetorno = Integer.parseInt(s[1]);
                             if(IDRetorno >= 181 && IDRetorno <= 200) {
-                                for(int i = 0; i < 100; i++) {
-                                    if(buttonEstacCarroP[i].getName().equals(Integer.toString(IDRetorno))) {
-                                        buttonEstacCarroP[i].setBackground(Color.green);
+                                for(int i = 0; i < 20; i++) {
+                                    if(buttonEstacCaminhonete[i].getName().equals(Integer.toString(IDRetorno))) {
+                                        buttonEstacCaminhonete[i].setBackground(Color.green);
                                     }
                                 }
                             }
-                            infoCaminhonete.setText(Integer.toString(sistema.sizeTerreoMotos()));
+                            infoCaminhonete.setText(Integer.toString(sistema.sizeTerreoCaminhonetes()));
                             saidaVeiculos.dispose();
                             pagamento.setVisible(true);
                             break;
@@ -632,13 +638,13 @@ class Interface  {
                             ret = sistema.registraSaida(new Automovel(placaSaida.getText(),Automovel.MOTO),data);
                             s = ret.split(";");
                             infoTipo.setText("Carro");
-                            infoPreco.setText(s[0]);
+                            infoPreco.setText(String.format("%.2f",Double.parseDouble(s[0])));
                             infoPlaca.setText(placaSaida.getText());
                             IDRetorno = Integer.parseInt(s[1]);
                             if(IDRetorno >= 161 && IDRetorno <= 180) {
-                                for(int i = 0; i < 100; i++) {
-                                    if(buttonEstacCarroP[i].getName().equals(Integer.toString(IDRetorno))) {
-                                        buttonEstacCarroP[i].setBackground(Color.green);
+                                for(int i = 0; i < 20; i++) {
+                                    if(buttonEstacMoto[i].getName().equals(Integer.toString(IDRetorno))) {
+                                        buttonEstacMoto[i].setBackground(Color.green);
                                     }
                                 }
                             }

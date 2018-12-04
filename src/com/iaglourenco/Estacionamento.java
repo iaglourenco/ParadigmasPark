@@ -3,6 +3,7 @@ package com.iaglourenco;
 
 
 import com.iaglourenco.exceptions.EstacionamentoCheioException;
+import com.iaglourenco.exceptions.PlacaInexistenteException;
 
 import java.util.ArrayList;
 
@@ -18,10 +19,10 @@ class Estacionamento {
     private int qtdMotos=0;
     private int qtdCaminhonetes=0;
 
-    private ArrayList<Vaga> piso1 = new ArrayList<>();
-    private ArrayList<Vaga> terreoCarro = new ArrayList<>();
-    private ArrayList<Vaga> terreoMoto = new ArrayList<>();
-    private ArrayList<Vaga> terreoCaminhonete = new ArrayList<>();
+    private final ArrayList<Vaga> piso1 = new ArrayList<>();
+    private final ArrayList<Vaga> terreoCarro = new ArrayList<>();
+    private final ArrayList<Vaga> terreoMoto = new ArrayList<>();
+    private final ArrayList<Vaga> terreoCaminhonete = new ArrayList<>();
 
     private static Estacionamento instance;
 
@@ -162,51 +163,54 @@ class Estacionamento {
         return null;
     }
 
-    String sai(Automovel automovel){
+    String sai(Automovel automovel) throws PlacaInexistenteException {
 
-        switch (automovel.getTipo()){
+        try {
+            switch (automovel.getTipo()) {
 
-            case Automovel.CAMINHONETE:
-                for(int i=0;i<terreoCaminhonete.size();i++){
-                    if(terreoCaminhonete.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
-                        String id = terreoCaminhonete.get(i).getVagaID();
-                        terreoCaminhonete.set(i,new Vaga(id));
-                        qtdCaminhonetes--;
-                        return id;
+                case Automovel.CAMINHONETE:
+                    for (int i = 0; i < terreoCaminhonete.size(); i++) {
+                        if (terreoCaminhonete.get(i).getVeiculo() != null && terreoCaminhonete.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
+                            String id = terreoCaminhonete.get(i).getVagaID();
+                            terreoCaminhonete.set(i, new Vaga(id));
+                            qtdCaminhonetes--;
+                            return id;
+                        }
                     }
-                }
-                break;
-            case Automovel.CARRO:
-                for(int i=0;i<piso1.size();i++){
-                    if(piso1.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
-                        String id = piso1.get(i).getVagaID();
-                        piso1.set(i,new Vaga(id));
-                        qtdPiso1--;
-                        return id;
+                    break;
+                case Automovel.CARRO:
+                    for (int i = 0; i < piso1.size(); i++) {
+                        if (piso1.get(i).getVeiculo() != null && piso1.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
+                            String id = piso1.get(i).getVagaID();
+                            piso1.set(i, new Vaga(id));
+                            qtdPiso1--;
+                            return id;
+                        }
                     }
-                }
-                for(int i=0;i<terreoCarro.size();i++){
-                    if(terreoCarro.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
-                        String id = terreoCarro.get(i).getVagaID();
-                        terreoCarro.set(i,new Vaga(id));
-                        qtdTerreoCarros--;
-                        return id;
+                    for (int i = 0; i < terreoCarro.size(); i++) {
+                        if (terreoCarro.get(i).getVeiculo()!= null && terreoCarro.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
+                            String id = terreoCarro.get(i).getVagaID();
+                            terreoCarro.set(i, new Vaga(id));
+                            qtdTerreoCarros--;
+                            return id;
+                        }
                     }
-                }
-                break;
-            case Automovel.MOTO:
-                for(int i=0;i<terreoMoto.size();i++){
-                    if(terreoMoto.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())){
-                        String id = terreoMoto.get(i).getVagaID();
-                        terreoMoto.set(i,new Vaga(id));
-                        qtdMotos--;
-                        return id;
+                    break;
+                case Automovel.MOTO:
+                    for (int i = 0; i < terreoMoto.size(); i++) {
+                        if (terreoMoto.get(i).getVeiculo()!= null && terreoMoto.get(i).getVeiculo().getPlaca().equals(automovel.getPlaca())) {
+                            String id = terreoMoto.get(i).getVagaID();
+                            terreoMoto.set(i, new Vaga(id));
+                            qtdMotos--;
+                            return id;
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+
+        }catch (NullPointerException e){
+            throw new PlacaInexistenteException();
         }
-
-
 
         return null;
     }

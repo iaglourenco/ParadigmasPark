@@ -1,15 +1,13 @@
 package com.iaglourenco;
 
-public class Vaga {
+import java.util.Objects;
 
-    private Automovel veiculo;
+class Vaga {
+
+    private final Automovel veiculo;
     private String horaEntrada;
     private String vagaID;
 
-
-    Vaga(){
-        veiculo =null;
-    }
 
     Vaga(String vagaID){
         veiculo=null;
@@ -21,13 +19,7 @@ public class Vaga {
     }
 
 
-    public String getHoraEntrada() {
-        return horaEntrada;
-    }
-
-    int getTipoVeiculo() {
-        return veiculo.getTipo();
-    }
+    int getTipoVeiculo() { return Objects.requireNonNull(veiculo).getTipo(); }
 
     Automovel getVeiculo() {
         return veiculo;
