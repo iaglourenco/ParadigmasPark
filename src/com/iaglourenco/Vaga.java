@@ -1,30 +1,34 @@
 package com.iaglourenco;
 
-public class Vaga {
+import java.util.Objects;
 
+class Vaga {
 
-
-    private Automovel veiculo;
-    private int tipo;
+    private final Automovel veiculo;
     private String horaEntrada;
+    private String vagaID;
 
 
-    public Vaga(Automovel veiculo,int tipo,String hora){
+    Vaga(String vagaID){
+        veiculo=null;
+        this.vagaID = vagaID;
+    }
+    Vaga(Automovel veiculo,String hora){
         this.veiculo=veiculo;
-        this.tipo=tipo;
         this.horaEntrada=hora;
     }
 
 
-    public String getHoraEntrada() {
-        return horaEntrada;
-    }
+    int getTipoVeiculo() { return Objects.requireNonNull(veiculo).getTipo(); }
 
-    public int getTipo() {
-        return tipo;
-    }
-
-    public Automovel getVeiculo() {
+    Automovel getVeiculo() {
         return veiculo;
+    }
+
+    String getVagaID() {
+        return vagaID;
+    }
+    void setVagaID(String vagaID){
+        this.vagaID = vagaID;
     }
 }

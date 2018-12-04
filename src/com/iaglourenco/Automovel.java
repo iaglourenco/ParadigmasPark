@@ -1,24 +1,21 @@
 package com.iaglourenco;
 
-public class Automovel {
-    public static final int CAMINHONETE=0,CARRO=1,MOTO=2;
+class Automovel {
+    static final int CAMINHONETE=0,CARRO=1,MOTO=2;
 
 
-    private String marca;
-    private String modelo;
-    private String placa;
-    private int tipo;
+    private final String placa;
+    private final int tipo;
 
-    public Automovel(String marca,String modelo,String placa,int tipo){
-       this.marca=marca;
-       this.modelo=modelo;
+    Automovel(String placa){
+        this.placa =placa;
+        tipo=-1;
+    }
+    Automovel(String placa, int tipo){
        this.placa=placa;
        this.tipo=tipo;
-
     }
 
-    String getMarca(){return this.marca;}
-    String getModelo(){return this.modelo;}
     String getPlaca(){return this.placa;}
     int getTipo(){return this.tipo;}
 
