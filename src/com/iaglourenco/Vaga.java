@@ -5,7 +5,7 @@ import java.util.Objects;
 class Vaga {
 
     private final Automovel veiculo;
-    private String horaEntrada;
+    private String data;
     private String vagaID;
 
 
@@ -13,9 +13,9 @@ class Vaga {
         veiculo=null;
         this.vagaID = vagaID;
     }
-    Vaga(Automovel veiculo,String hora){
+    Vaga(Automovel veiculo,String data){
         this.veiculo=veiculo;
-        this.horaEntrada=hora;
+        this.data=data;
     }
 
 
@@ -30,5 +30,9 @@ class Vaga {
     }
     void setVagaID(String vagaID){
         this.vagaID = vagaID;
+    }
+
+    String getData() {
+        return data;
     }
 }

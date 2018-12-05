@@ -7,6 +7,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -22,6 +23,15 @@ class Interface  {
     private final JFrame contabilidade = new JFrame();
     private final JFrame status = new JFrame();
     private final JFrame pagamento = new JFrame();
+    private JMenuBar bar = new JMenuBar();
+    private JMenu arquivo = new JMenu("Arquivo");
+    private JMenuItem sobre = new JMenuItem("Sobre");
+    private JMenuItem clean = new JMenuItem("Reset do sistema");
+    private JMenuItem sair = new JMenuItem("Sair");
+    private JMenuItem salvar = new JMenuItem("Salvar");
+
+
+
     private final Dimension frameDimension = new Dimension(1000,720);//TODO ajustar resolução
     private final Dimension popupDimension = new Dimension(300,210);
 
@@ -100,12 +110,13 @@ class Interface  {
     private  Interface(){
         initialize();
         initSetup();
-        setupEstacionamento.setVisible(true);
-        sistema.setup();
         try {
+            sistema.setup();
             sistema.updateVagasFile();
         } catch (WriteFileException e) {
             JOptionPane.showMessageDialog(null,e.getMessage(),"ERRO AO ESCREVER ARQUIVO",JOptionPane.ERROR_MESSAGE);
+        } catch (ReadFileException e1) {
+            JOptionPane.showMessageDialog(null,e1.getMessage(),"ERRO AO LER ARQUIVO",JOptionPane.ERROR_MESSAGE);
         }
         initEntrada();
         initSaida();
@@ -113,6 +124,80 @@ class Interface  {
         initContabilidade();
         initPopContabile();
         addAllHandlers();
+        updateView();
+        status.setVisible(true);
+        if(!sistema.priceSeted)
+            setupEstacionamento.setVisible(true);
+    }
+
+    private void updateView(){
+
+        ArrayList<String> ocupados = sistema.idsOcupados();
+        int IDRetorno;
+
+        for (String id: ocupados ) {
+
+            IDRetorno = Integer.parseInt(id);
+
+            if(IDRetorno >= 1 && IDRetorno <= 100) {
+                for(int i = 0; i < 100; i++) {
+                    if(buttonEstacCarroP[i].getName().equals(Integer.toString(IDRetorno))) {
+                        buttonEstacCarroP[i].setBackground(Color.red);
+                    }
+                }
+                infoCarro.setText(Integer.toString(sistema.sizeTerreoCarros() + sistema.sizePiso1()));
+            }
+            if(IDRetorno >= 101 && IDRetorno <= 160) {
+                for(int i = 0; i < 100; i++) {
+                    if(buttonEstacCarroT[i].getName().equals(Integer.toString(IDRetorno))) {
+                        buttonEstacCarroT[i].setBackground(Color.red);
+                    }
+                }
+                infoCarro.setText(Integer.toString(sistema.sizeTerreoCarros() + sistema.sizePiso1()));
+            }
+
+            if(IDRetorno >= 181 && IDRetorno <= 200) {
+                for(int i = 0; i < 20; i++) {
+                    if(buttonEstacCaminhonete[i].getName().equals(Integer.toString(IDRetorno))) {
+                        buttonEstacCaminhonete[i].setBackground(Color.red);
+                    }
+                }
+                infoCaminhonete.setText(Integer.toString(sistema.sizeTerreoCaminhonetes()));
+            }
+
+            if(IDRetorno >= 161 && IDRetorno <= 180) {
+                for(int i = 0; i < 20; i++) {
+                    if(buttonEstacMoto[i].getName().equals(Integer.toString(IDRetorno))) {
+                        buttonEstacMoto[i].setBackground(Color.red);
+                    }
+                }
+                infoMoto.setText(Integer.toString(sistema.sizeTerreoMotos()));
+            }
+        }
+        if(ocupados.size() == 0){
+            for (JButton jButton : buttonEstacMoto) {
+                jButton.setBackground(Color.green);
+            }
+            for (JButton jButton : buttonEstacCarroT) {
+                jButton.setBackground(Color.green);
+            }
+            for (JButton jButton : buttonEstacCarroP) {
+                jButton.setBackground(Color.green);
+            }
+            for (JButton jButton : buttonEstacCaminhonete) {
+                jButton.setBackground(Color.green);
+            }
+
+            infoCarro.setText(String.valueOf(sistema.sizePiso1() + sistema.sizeTerreoCarros()));
+            infoMoto.setText(String.valueOf(sistema.sizeTerreoMotos()));
+            infoCaminhonete.setText(String.valueOf(sistema.sizeTerreoCaminhonetes()));
+
+        }
+
+
+
+
+
     }
 
     private void addAllHandlers(){
@@ -156,12 +241,18 @@ class Interface  {
                 }else if(precoCaminhonete.getText().equals("0.0") || precoCarro.getText().equals("0.0") || precoMotocicleta.getText().equals("0.0")){
                     JOptionPane.showMessageDialog(null,"Preencha todos os campos!","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else{
-                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
-                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
-                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
-                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    setupEstacionamento.dispose();
-                }
+
+                    try {
+                        sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                        sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                        sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
+                        JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
+                        setupEstacionamento.dispose();
+
+                    } catch (WriteFileException e1) {
+                        JOptionPane.showMessageDialog(null,e1.getMessage(),"ERRO AO GRAVAR NO ARQUIVO",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
             }
         });
         setupEstacionamento.addWindowFocusListener(new WindowAdapter() {
@@ -190,26 +281,76 @@ class Interface  {
         status.setResizable(false);
         status.setLocationRelativeTo(null);
         status.setTitle("Paradigmas-B [Controle de Estacionamento]");
+        arquivo.add(clean);
+        arquivo.add(salvar);
+        arquivo.add(sobre);
+        arquivo.add(sair);
+        bar.add(arquivo);
+        sobre.addActionListener(e -> JOptionPane.showMessageDialog(null,"Projeto feito por:\n\tBruno Camilo\n\tIago Lourenço\n\n\tTodos direitos reservados(c)","Sobre",JOptionPane.INFORMATION_MESSAGE));
+        sair.addActionListener(e -> {
+            if (JOptionPane.showConfirmDialog(null, "Tem certeza?", "Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+            {
+                System.exit(0);
+
+            }
+        });
+        clean.addActionListener(e ->{
+            if (JOptionPane.showConfirmDialog(null, "Isso apagará todos os dados e reiniciará o sitema\nTem certeza?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+            {
+                try {
+
+                    sistema.reset();
+                    updateView();
+                    setupEstacionamento.setVisible(true);
+                }catch (Exception e1){
+                    JOptionPane.showMessageDialog(null, e1.getMessage(),"ERRO AO RESETAR",JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        });
+        salvar.addActionListener(e ->{
+            try {
+                sistema.updateVagasFile();
+                JOptionPane.showMessageDialog(null,"Salvo com sucesso","Salvar",JOptionPane.INFORMATION_MESSAGE);
+            }catch (WriteFileException e1) {
+                JOptionPane.showMessageDialog(null,e1.getMessage(),"ERRO AO SALVAR",JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        status.setJMenuBar(bar);
+
+        Color defaultColorButton = buttonTerreo.getBackground();
 
         //STATUS TERREO
+        panel2Status.add(new JLabel("Visualização: "));
         panel2Status.add(buttonTerreo);
-        buttonTerreo.addActionListener(e -> cardLayout.show(root,"terreo"));
+        buttonTerreo.addActionListener(e -> {
+            cardLayout.show(root, "terreo");
+            buttonTerreo.setBackground(Color.orange);
+            buttonPriPiso.setBackground(defaultColorButton);
+
+        });
         carroStatusTerreo.setPreferredSize(new Dimension(500,720));
 
         //STATUS 1°PISO
         panel2Status.add(buttonPriPiso);
-        buttonPriPiso.addActionListener(e -> cardLayout.show(root,"piso1"));
+        buttonPriPiso.addActionListener(e -> {
+            cardLayout.show(root, "piso1");
+            buttonPriPiso.setBackground(Color.orange);
+            buttonTerreo.setBackground(defaultColorButton);
+        });
+        panel2Status.add(new JLabel("                      "));
 
         //Visualização Geral
-        panel2Status.add(new JLabel("                                              Carros "));
+        panel2Status.add(new JLabel("Carros "));
         panel2Status.add(infoCarro);
         infoCarro.setEditable(false);
 
-        panel2Status.add(new JLabel("      Caminhonetes "));
+        panel2Status.add(new JLabel("Caminhonetes "));
         panel2Status.add(infoCaminhonete);
         infoCaminhonete.setEditable(false);
 
-        panel2Status.add(new JLabel("      Motocicletas "));
+        panel2Status.add(new JLabel("Motocicletas "));
         panel2Status.add(infoMoto);
         infoMoto.setEditable(false);
 
@@ -241,6 +382,16 @@ class Interface  {
             buttonEstacCarroT[i].setBackground(Color.green);
             buttonEstacCarroT[i].setIcon(carro);
             buttonEstacCarroT[i].setVisible(true);
+            int finalI = i;
+            buttonEstacCarroT[i].addActionListener(e -> {
+                Automovel v = sistema.findVeiculoById(buttonEstacCarroT[finalI].getName());
+                try {
+                    JOptionPane.showMessageDialog(null,"Placa: "+v.getPlaca(),"INFO",JOptionPane.INFORMATION_MESSAGE);
+                }catch (NullPointerException e1){
+                    JOptionPane.showMessageDialog(null,"VAGA VAZIA","INFO",JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            });
             carroStatusTerreo.add(buttonEstacCarroT[i]);
         }
 
@@ -251,6 +402,16 @@ class Interface  {
             buttonEstacCarroP[i].setBackground(Color.green);
             buttonEstacCarroP[i].setIcon(carro);
             buttonEstacCarroP[i].setVisible(true);
+            int finalI = i;
+            buttonEstacCarroP[i].addActionListener(e -> {
+                Automovel v = sistema.findVeiculoById(buttonEstacCarroP[finalI].getName());
+                try {
+                    JOptionPane.showMessageDialog(null,"Placa: "+v.getPlaca(),"INFO",JOptionPane.INFORMATION_MESSAGE);
+                }catch (NullPointerException e1){
+                    JOptionPane.showMessageDialog(null,"VAGA VAZIA","INFO",JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            });
             carroStatus.add(buttonEstacCarroP[i]);
         }
 
@@ -262,6 +423,16 @@ class Interface  {
             buttonEstacCaminhonete[i].setBackground(Color.green);
             buttonEstacCaminhonete[i].setIcon(caminhonete);
             buttonEstacCaminhonete[i].setVisible(true);
+            int finalI = i;
+            buttonEstacCaminhonete[i].addActionListener(e -> {
+                Automovel v = sistema.findVeiculoById(buttonEstacCaminhonete[finalI].getName());
+                try {
+                    JOptionPane.showMessageDialog(null,"Placa: "+v.getPlaca(),"INFO",JOptionPane.INFORMATION_MESSAGE);
+                }catch (NullPointerException e1){
+                    JOptionPane.showMessageDialog(null,"VAGA VAZIA","INFO",JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            });
             caminhoneteStatus.add(buttonEstacCaminhonete[i]);
         }
 
@@ -273,6 +444,16 @@ class Interface  {
             buttonEstacMoto[i].setBackground(Color.green);
             buttonEstacMoto[i].setIcon(moto);
             buttonEstacMoto[i].setVisible(true);
+            int finalI = i;
+            buttonEstacMoto[i].addActionListener(e -> {
+                Automovel v = sistema.findVeiculoById(buttonEstacMoto[finalI].getName());
+                try {
+                    JOptionPane.showMessageDialog(null,"Placa: "+v.getPlaca(),"INFO",JOptionPane.INFORMATION_MESSAGE);
+                }catch (NullPointerException e1){
+                    JOptionPane.showMessageDialog(null,"VAGA VAZIA","INFO",JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            });
             motoStatus.add(buttonEstacMoto[i]);
         }
 
@@ -286,11 +467,10 @@ class Interface  {
 
         root.add("terreo",terreo);
         root.add("piso1",piso1);
-
+        buttonTerreo.setBackground(Color.orange);
         cardLayout.show(root,"terreo");
 
-        status.setVisible(true);
-    }
+       }
 
     private void initSetup(){
         //LAYOUT DE CONFIGURAR PREÃ‡OS
@@ -366,14 +546,12 @@ class Interface  {
     private void initContabilidade(){
         //LAYOUT CONTROLE DA CONTABILIDADE
         contabilidade.setLayout(new BorderLayout());
-        contabilidade.setSize(frameDimension);
+        contabilidade.setSize(popupDimension);
         contabilidade.setResizable(false);
         contabilidade.setLocationRelativeTo(null);
         contabilidade.setTitle("Contabilidade");
         contabArea.setEditable(false);
-        contabArea.append("String de teste");
-
-
+        contabArea.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         panelContabilidade.add(buttonOKContabilidade);
         contabilidade.add(contabArea);
         contabilidade.add(panelContabilidade,BorderLayout.SOUTH);
@@ -406,7 +584,11 @@ class Interface  {
         infoPlaca.setEditable(false);
         infoTipo.setEditable(false);
         infoPreco.setEditable(false);
-        panelPagamento.setLayout(new GridLayout(7,0,10,10));
+        infoPlaca.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        infoTipo.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        infoPreco.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+
+        panelPagamento.setLayout(new GridLayout(4,0,10,10));
         panelPagamento.add(new JLabel("Placa"));
         panelPagamento.add(infoPlaca);
         panelPagamento.add(new JLabel("Tipo"));
@@ -414,6 +596,7 @@ class Interface  {
         panelPagamento.add(new JLabel("Valor"));
         panelPagamento.add(infoPreco);
         panelPagamento.add(buttonOKPagamento);
+
         buttonOKPagamento.addActionListener(e -> pagamento.dispose());
 
         pagamento.add(panelPagamento,BorderLayout.CENTER);
@@ -451,6 +634,9 @@ class Interface  {
                 dataInicio.setText("");
                 setupContabilidade.setVisible(true);
             }else if(e.getSource() == buttonSetup){
+                precoCarro.setText(Double.toString(sistema.getPrecoCarro()));
+                precoCaminhonete.setText(Double.toString(sistema.getPrecoCaminhonete()));
+                precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
                 setupEstacionamento.setVisible(true);
             }else if(e.getSource() == buttonExit){
                 if(JOptionPane.showConfirmDialog
@@ -487,12 +673,15 @@ class Interface  {
                     precoMotocicleta.setText(Double.toString(sistema.getPrecoMoto()));
 
                 }else{
-
-                    sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
-                    sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
-                    sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
-                    JOptionPane.showMessageDialog(null,"Os preços digitados foram salvos!","INFO",JOptionPane.INFORMATION_MESSAGE);
-                    setupEstacionamento.dispose();
+                    try {
+                        sistema.setPrecoCaminhonete(Double.parseDouble(precoCaminhonete.getText()));
+                        sistema.setPrecoCarro(Double.parseDouble(precoCarro.getText()));
+                        sistema.setPrecoMoto(Double.parseDouble(precoMotocicleta.getText()));
+                        JOptionPane.showMessageDialog(null, "Os preços digitados foram salvos!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                        setupEstacionamento.dispose();
+                    }catch (WriteFileException e1){
+                        JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO AO SALVAR NO ARQUIVO", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             } else if (e.getSource() == buttonClearSetup) {
                 //limpa os campos
@@ -523,7 +712,7 @@ class Interface  {
 
                         case "Carro":
 
-                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CARRO), data));
+                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText().toUpperCase(), Automovel.CARRO), data));
 
                             if(IDRetorno >= 1 && IDRetorno <= 100) {
                                 for(int i = 0; i < 100; i++) {
@@ -545,7 +734,7 @@ class Interface  {
                             break;
 
                         case "Caminhonete":
-                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.CAMINHONETE), data));
+                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText().toUpperCase(), Automovel.CAMINHONETE), data));
 
                             if(IDRetorno >= 181 && IDRetorno <= 200) {
                                 for(int i = 0; i < 20; i++) {
@@ -560,7 +749,7 @@ class Interface  {
                             break;
 
                         case "Motocicleta":
-                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText(), Automovel.MOTO), data));
+                            IDRetorno = Integer.parseInt(sistema.registraEntrada(new Automovel(placaEntrada.getText().toUpperCase(), Automovel.MOTO), data));
 
                             if(IDRetorno >= 161 && IDRetorno <= 180) {
                                 for (int i = 0; i < 20; i++) {
@@ -611,7 +800,7 @@ class Interface  {
 
                     String data = diaSaida.getText()+"&"+horaSaida.getText();
 
-                    ret = sistema.registraSaida(new Automovel(placaSaida.getText()),data);
+                    ret = sistema.registraSaida(new Automovel(placaSaida.getText().toUpperCase()),data);
                     s = ret.split(";");
                     infoPreco.setText(String.format("%.2f",Double.parseDouble(s[0])));
                     infoPlaca.setText(placaSaida.getText());
@@ -691,14 +880,14 @@ class Interface  {
             }else if(e.getSource() == buttonBackPopContabile){
                 setupContabilidade.dispose();
             }else {
-
-                if(diaEntrada.getText().isEmpty() || diaSaida.getText().isEmpty()){
+                if(dataInicio.getText().isEmpty() || dataFim.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"PREENCHA TODOS OS CAMPOS","ERRO",JOptionPane.ERROR_MESSAGE);
                 }else {
-                    //TODO chamar a função contabile no sistema e setar a string retornada
-                    //sistema.contabile
+                    String[] contabile = sistema.contabile(dataInicio + ";" + dataFim).split(",");
 
-
+                    contabArea.setText("");
+                    contabArea.append("Total de saidas: "+contabile[1]+"\n\n"+"Lucro total: R$ "+contabile[0]);
+                    contabilidade.setVisible(true);
                 }
             }
         }
