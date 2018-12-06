@@ -23,12 +23,12 @@ class Interface  {
     private final JFrame contabilidade = new JFrame();
     private final JFrame status = new JFrame();
     private final JFrame pagamento = new JFrame();
-    private JMenuBar bar = new JMenuBar();
-    private JMenu arquivo = new JMenu("Arquivo");
-    private JMenuItem sobre = new JMenuItem("Sobre");
-    private JMenuItem clean = new JMenuItem("Reset do sistema");
-    private JMenuItem sair = new JMenuItem("Sair");
-    private JMenuItem salvar = new JMenuItem("Salvar");
+    private final JMenuBar bar = new JMenuBar();
+    private final JMenu arquivo = new JMenu("Arquivo");
+    private final JMenuItem sobre = new JMenuItem("Sobre");
+    private final JMenuItem clean = new JMenuItem("Reset do sistema");
+    private final JMenuItem sair = new JMenuItem("Sair");
+    private final JMenuItem salvar = new JMenuItem("Salvar");
 
 
 
@@ -295,7 +295,7 @@ class Interface  {
             }
         });
         clean.addActionListener(e ->{
-            if (JOptionPane.showConfirmDialog(null, "Isso apagará todos os dados e reiniciará o sitema\nTem certeza?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+            if (JOptionPane.showConfirmDialog(null, "Isso apagará todos os dados e reiniciará o sistema\nTem certeza?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
             {
                 try {
 

@@ -1,7 +1,6 @@
 package com.iaglourenco;
 
 import com.iaglourenco.exceptions.*;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,7 @@ class Sistema {
     private double precoCarro;
     private double precoMoto;
 
-    private ArrayList<Transacao> historico = new ArrayList<>();
+    private final ArrayList<Transacao> historico = new ArrayList<>();
 
     private final String csvVagas = "vagas.csv";
     private final String csvHistorico = "history.csv";

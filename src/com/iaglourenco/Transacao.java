@@ -1,15 +1,15 @@
 package com.iaglourenco;
 
 
-public class Transacao {
+class Transacao {
 
 
-    private String dia;
-    private String hora;
-    private String placa;
-    private String vagaID;
-    private int tipoVeiculo;
-    private double valor;
+    private final String dia;
+    private final String hora;
+    private final String placa;
+    private final String vagaID;
+    private final int tipoVeiculo;
+    private final double valor;
 
     Transacao(String dia, String hora, String placa, String vagaID, double valor, int tipoVeiculo){
         this.dia=dia;
