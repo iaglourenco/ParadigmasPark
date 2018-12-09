@@ -9,6 +9,9 @@ import java.util.Date;
 
 class Sistema {
 
+
+
+
     private final Estacionamento estacionamento = Estacionamento.getInstance();
     private static Sistema system=null;
     private double precoCaminhonete;
@@ -24,6 +27,10 @@ class Sistema {
     private BufferedWriter writer;
     boolean priceSeted = false;
 
+
+    private Sistema(){
+
+    }
 
     ArrayList<String> idsOcupados(){
 

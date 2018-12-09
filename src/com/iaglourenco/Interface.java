@@ -270,22 +270,7 @@ class Interface  {
 
         buttonOKContabilidade.addActionListener(new ContabileHandler());
 
-    }
 
-    private void initialize(){
-        //LAYOUT PRINCIPAL
-        status.add(panel1Status,BorderLayout.SOUTH);
-        status.add(panel2Status,BorderLayout.NORTH);
-        status.add(root);
-        status.setSize(frameDimension);
-        status.setResizable(false);
-        status.setLocationRelativeTo(null);
-        status.setTitle("Paradigmas-B [Controle de Estacionamento]");
-        arquivo.add(clean);
-        arquivo.add(salvar);
-        arquivo.add(sobre);
-        arquivo.add(sair);
-        bar.add(arquivo);
         sobre.addActionListener(e -> JOptionPane.showMessageDialog(null,"Projeto feito por:\n\tBruno Camilo\n\tIago Lourenço\n\n\tTodos direitos reservados(c)","Sobre",JOptionPane.INFORMATION_MESSAGE));
         sair.addActionListener(e -> {
             if (JOptionPane.showConfirmDialog(null, "Tem certeza?", "Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
@@ -316,6 +301,24 @@ class Interface  {
                 JOptionPane.showMessageDialog(null,e1.getMessage(),"ERRO AO SALVAR",JOptionPane.ERROR_MESSAGE);
             }
         });
+
+
+    }
+
+    private void initialize(){
+        //LAYOUT PRINCIPAL
+        status.add(panel1Status,BorderLayout.SOUTH);
+        status.add(panel2Status,BorderLayout.NORTH);
+        status.add(root);
+        status.setSize(frameDimension);
+        status.setResizable(false);
+        status.setLocationRelativeTo(null);
+        status.setTitle("Paradigmas-B [Controle de Estacionamento]");
+        arquivo.add(clean);
+        arquivo.add(salvar);
+        arquivo.add(sobre);
+        arquivo.add(sair);
+        bar.add(arquivo);
 
         status.setJMenuBar(bar);
 

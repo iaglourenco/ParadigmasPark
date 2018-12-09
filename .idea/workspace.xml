@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c2c5834-1b09-4a31-a55a-d1111468d8f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/iaglourenco/Transacao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/history.csv" beforeDir="false" afterPath="$PROJECT_DIR$/history.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/META-INF/ParadigmasPark.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Automovel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Automovel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Estacionamento.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Estacionamento.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$3.class" afterDir="false" />
@@ -13,11 +16,19 @@
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$SetupHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface$StatusHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Interface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Programa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Programa.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Sistema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Transacao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Transacao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/Vaga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/EstacionamentoCheioException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/EstacionamentoCheioException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/PlacaInexistenteException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/PlacaInexistenteException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/ReadFileException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/ReadFileException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/VagaOcupadaException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/VagaOcupadaException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/ValorInvalidoException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/ValorInvalidoException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/WriteFileException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ParadigmasPark/com/iaglourenco/exceptions/WriteFileException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Sistema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/iaglourenco/Vaga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vagas.csv" afterDir="false" />
     </list>
     <list id="53e0bd8d-6b0c-4062-a2da-3b719a26351b" name="Comecei a mexer agora" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,14 +43,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="34" column="93" lean-forward="true" selection-start-line="34" selection-start-column="93" selection-end-line="34" selection-end-column="93" />
+            <state relative-caret-position="125">
+              <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5194#5957#0" />
-                <element signature="e#5963#8636#0" />
-                <element signature="e#8642#12080#0" />
-                <element signature="e#12086#21100#0" />
+                <element signature="e#5230#5993#0" />
+                <element signature="e#5999#8672#0" />
+                <element signature="e#8678#12116#0" />
+                <element signature="e#12122#21161#0" />
+                <element signature="e#21167#22191#0" />
+                <element signature="e#22197#23108#0" />
+                <element signature="e#23114#23815#0" />
+                <element signature="e#23821#24429#0" />
+                <element signature="e#24435#25104#0" />
+                <element signature="e#25110#26227#0" />
+                <element signature="e#26233#26448#0" />
+                <element signature="e#26454#28434#0" />
+                <element signature="e#28440#30482#0" />
+                <element signature="e#30488#35570#0" />
+                <element signature="e#35576#39851#0" />
+                <element signature="e#39857#40792#0" />
               </folding>
             </state>
           </provider>
@@ -171,7 +194,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543976915482" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543977123982" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -265,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543890158932</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Efetuei muitos teste, tudo ok :)&#10;&#10;Adicionado:&#10;&#10;Reset do sistema&#10;Informaçoes de cada vaga, so clicar no icone ;)&#10;Restauraçao de sessao&#10;Salvar sessao&#10;Historico/Contabilidade*&#10;&#10;*a contabilidade eh feita de todo o historico&#10;o filtro de data nao esta funcionando&#10;&#10;o projeto ja vale uns 9 pontos">
+      <created>1543977317686</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1543977317686</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -278,10 +308,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="22" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.30257186" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30711043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -297,7 +327,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32850242" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3289689" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -399,7 +429,8 @@
     <MESSAGE value="Backend concluido (eu acho)&#10;&#10;falta fazer uns testes&#10;&#10;Nao consigo pegar o valor do JComboBox&#10;&#10;So falta a interface" />
     <MESSAGE value="Entrada e saida funcionando&#10;&#10;Exibiçao de vagas da pra melhorar, mas funciona&#10;&#10;falta fazer a função de contabilidade&#10;&#10;falta calcular o preço a pagar na saida levando em conta quantos dias ele ficou no estacionamento&#10;&#10;*mais informaçoes no @Readme.md &#10;&#10;o projeto ja vale uns 5 pontos" />
     <MESSAGE value="Entrada e saida funcionando,(NAO TESTEI DIREITO)&#10;&#10;Exibiçao de vagas da pra melhorar, mas funciona&#10;&#10;falta fazer a função de contabilidade&#10;&#10;o projeto ja vale uns 7 pontos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Entrada e saida funcionando,(NAO TESTEI DIREITO)&#10;&#10;Exibiçao de vagas da pra melhorar, mas funciona&#10;&#10;falta fazer a função de contabilidade&#10;&#10;o projeto ja vale uns 7 pontos" />
+    <MESSAGE value="Efetuei muitos teste, tudo ok :)&#10;&#10;Adicionado:&#10;&#10;Reset do sistema&#10;Informaçoes de cada vaga, so clicar no icone ;)&#10;Restauraçao de sessao&#10;Salvar sessao&#10;Historico/Contabilidade*&#10;&#10;*a contabilidade eh feita de todo o historico&#10;o filtro de data nao esta funcionando&#10;&#10;o projeto ja vale uns 9 pontos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Efetuei muitos teste, tudo ok :)&#10;&#10;Adicionado:&#10;&#10;Reset do sistema&#10;Informaçoes de cada vaga, so clicar no icone ;)&#10;Restauraçao de sessao&#10;Salvar sessao&#10;Historico/Contabilidade*&#10;&#10;*a contabilidade eh feita de todo o historico&#10;o filtro de data nao esta funcionando&#10;&#10;o projeto ja vale uns 9 pontos" />
   </component>
   <component name="WindowStateProjectService">
     <state width="194" height="248" key="Git.Branch.Popup" />
@@ -480,32 +511,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Transaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="23" lean-forward="true" selection-end-line="35" />
-          <folding>
-            <element signature="e#354#355#0" expanded="true" />
-            <element signature="e#380#381#0" expanded="true" />
-            <element signature="e#411#412#0" expanded="true" />
-            <element signature="e#438#439#0" expanded="true" />
-            <element signature="e#467#468#0" expanded="true" />
-            <element signature="e#494#495#0" expanded="true" />
-            <element signature="e#526#527#0" expanded="true" />
-            <element signature="e#554#555#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Transaction.java" />
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Transacao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Automovel.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -536,6 +544,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/history.csv">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="csv-text-editor" />
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" rowLines="3">
           <column index="0" width="100" />
@@ -544,25 +554,6 @@
           <column index="3" width="100" />
           <column index="4" width="100" />
           <column index="5" width="100" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="269" column="31" selection-start-line="269" selection-start-column="31" selection-end-line="269" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#792#793#0" expanded="true" />
-            <element signature="e#823#824#0" expanded="true" />
-            <element signature="method#placaCadastrada#0;class#Estacionamento#0" />
-            <element signature="method#entra#0;class#Estacionamento#0" />
-            <element signature="method#sai#0;class#Estacionamento#0" />
-            <element signature="method#put#0;class#Estacionamento#0" />
-            <element signature="method#getInstance#0;class#Estacionamento#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -580,10 +571,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vagas.csv">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="csv-text-editor" />
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3">
+          <column index="0" width="100" />
+          <column index="1" width="100" />
+          <column index="2" width="100" />
+          <column index="3" width="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project" />
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Transacao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Estacionamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1041">
+          <caret line="269" column="31" selection-start-line="269" selection-start-column="31" selection-end-line="269" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="true" />
+            <element signature="method#placaCadastrada#0;class#Estacionamento#0" />
+            <element signature="method#entra#0;class#Estacionamento#0" />
+            <element signature="method#sai#0;class#Estacionamento#0" />
+            <element signature="method#put#0;class#Estacionamento#0" />
+            <element signature="method#getInstance#0;class#Estacionamento#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Sistema.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="112" column="22" lean-forward="true" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+        <state relative-caret-position="323">
+          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#idsOcupados#0;class#Sistema#0" />
@@ -600,28 +628,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vagas.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3">
-          <column index="0" width="100" />
-          <column index="1" width="100" />
-          <column index="2" width="100" />
-          <column index="3" width="100" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
-      <provider editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iaglourenco/Interface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="34" column="93" lean-forward="true" selection-start-line="34" selection-start-column="93" selection-end-line="34" selection-end-column="93" />
+        <state relative-caret-position="125">
+          <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5194#5957#0" />
-            <element signature="e#5963#8636#0" />
-            <element signature="e#8642#12080#0" />
-            <element signature="e#12086#21100#0" />
+            <element signature="e#5230#5993#0" />
+            <element signature="e#5999#8672#0" />
+            <element signature="e#8678#12116#0" />
+            <element signature="e#12122#21161#0" />
+            <element signature="e#21167#22191#0" />
+            <element signature="e#22197#23108#0" />
+            <element signature="e#23114#23815#0" />
+            <element signature="e#23821#24429#0" />
+            <element signature="e#24435#25104#0" />
+            <element signature="e#25110#26227#0" />
+            <element signature="e#26233#26448#0" />
+            <element signature="e#26454#28434#0" />
+            <element signature="e#28440#30482#0" />
+            <element signature="e#30488#35570#0" />
+            <element signature="e#35576#39851#0" />
+            <element signature="e#39857#40792#0" />
           </folding>
         </state>
       </provider>
