@@ -3,7 +3,7 @@ package com.iaglourenco;
 
 
 import com.iaglourenco.exceptions.EstacionamentoCheioException;
-import com.iaglourenco.exceptions.PlacaInexistenteException;
+
 
 import java.util.ArrayList;
 
@@ -27,7 +27,51 @@ class Estacionamento {
     private static Estacionamento instance;
 
     private Estacionamento(){
+        populateEmpty();
+    }
 
+
+    private boolean placaCadastrada(String placa){
+
+
+        for (Vaga vaga : terreoCarro) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
+                    return true;
+                }
+        }
+
+        for (Vaga vaga : piso1) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
+                return true;
+            }
+        }
+
+        for (Vaga vaga : terreoMoto) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
+                return true;
+            }
+        }
+
+        for (Vaga vaga : terreoCaminhonete) {
+            if(vaga.getVeiculo() != null)
+                if (vaga.getVeiculo().getPlaca().equalsIgnoreCase(placa)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    void populateEmpty(){
+
+        piso1.clear();
+        terreoMoto.clear();
+        terreoCaminhonete.clear();
+        terreoCarro.clear();
 
         for(int i = 1 ; i <= MAX_CARROS_PISO_1;i++){
             piso1.add(new Vaga(Integer.toString(i)));
@@ -43,46 +87,12 @@ class Estacionamento {
             terreoCaminhonete.add(new Vaga(Integer.toString(i)));
         }
 
-
-
-    }
-
-
-    private boolean placaCadastrada(String placa){
-
-
-        for (Vaga vaga : terreoCarro) {
-            if(vaga.getVeiculo() != null)
-                if (vaga.getVeiculo().getPlaca().equals(placa)) {
-                    return true;
-                }
-        }
-
-        for (Vaga vaga : piso1) {
-            if(vaga.getVeiculo() != null)
-                if (vaga.getVeiculo().getPlaca().equals(placa)) {
-                return true;
-            }
-        }
-
-        for (Vaga vaga : terreoMoto) {
-            if(vaga.getVeiculo() != null)
-                if (vaga.getVeiculo().getPlaca().equals(placa)) {
-                return true;
-            }
-        }
-
-        for (Vaga vaga : terreoCaminhonete) {
-            if(vaga.getVeiculo() != null)
-                if (vaga.getVeiculo().getPlaca().equals(placa)) {
-                return true;
-            }
-        }
-
-        return false;
+        qtdPiso1=0;
+        qtdTerreoCarros=0;
+        qtdMotos=0;
+        qtdCaminhonetes=0;
 
     }
-
 
     String entra(Vaga vaga) throws EstacionamentoCheioException {
 
@@ -206,6 +216,48 @@ class Estacionamento {
 
 
         return null;
+    }
+
+    void put(String id,Vaga v){
+
+        v.setVagaID(id);
+
+        switch (v.getTipoVeiculo()){
+
+            case Automovel.CARRO:
+                for( int i =0; i< piso1.size();i++){
+                    if(piso1.get(i).getVagaID().equals(id)){
+                        piso1.set(i,v);
+                        if(Integer.parseInt(id)>=1 && Integer.parseInt(id) <=100){
+                            qtdPiso1++;
+                        }else {
+                            qtdTerreoCarros++;
+                        }
+                        return;
+                    }
+                }
+                break;
+            case Automovel.CAMINHONETE:
+                for( int i =0; i< terreoCaminhonete.size();i++){
+                    if(terreoCaminhonete.get(i).getVagaID().equals(id)){
+                        terreoCaminhonete.set(i,v);
+                        qtdCaminhonetes++;
+                        return;
+                    }
+                }
+                break;
+            case Automovel.MOTO:
+                for( int i =0; i< terreoMoto.size();i++){
+                    if(terreoMoto.get(i).getVagaID().equals(id)){
+                        terreoMoto.set(i,v);
+                        qtdMotos++;
+                        return;
+                    }
+                }
+                break;
+
+        }
+
     }
 
     static synchronized Estacionamento getInstance(){
